@@ -242,7 +242,7 @@ npm test</code></pre>
           <h2>You-Try 2 — break a test, fix it, ship a PR</h2>
           <ol>
             <li>Open <code>src/core/Activations.ts</code>. Find <code>relu</code>.</li>
-            <li>Change <code>return Math.max(0, x);</code> to <code>return Math.max(1, x);</code>.</li>
+            <li>Change <code>return x > 0 ? x : 0;</code> to <code>return x > 1 ? x : 1;</code>.</li>
             <li>Run <code>npm test</code>. Watch <code>Activations.test.ts</code> turn red.</li>
             <li>Revert the change. Run <code>npm test</code>. Watch it go green.</li>
             <li>
