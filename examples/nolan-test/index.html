@@ -47,7 +47,8 @@
       color: #666;
     }
 
-    #confusion {
+    #confusion,
+    #neuronSweep {
       margin-top: 0.75rem;
       font-family: ui-monospace, Menlo, Consolas, monospace;
       font-size: 0.8rem;
@@ -59,19 +60,29 @@
       white-space: pre;
       overflow-x: auto;
     }
+
+    h2 {
+      margin: 1.5rem 0 0;
+      font-size: 1rem;
+      color: #333;
+    }
   </style>
 </head>
 
 <body>
   <h1>ELM: Spam vs Ham Classifier</h1>
-  <p>Trained on the AbdulHadi806/mail_spam_ham_dataset SMS/email dataset.</p>
+  <p>Trained on the AbdulHadi806/mail_spam_ham_dataset SMS dataset, patched with hand-written modern email examples.</p>
   <input type="text" id="userInput" placeholder="Loading model…" autocomplete="off" disabled />
   <div id="autoOutput"></div>
   <div id="langFill"></div>
   <div id="status"></div>
   <pre id="confusion"></pre>
 
+  <h2>Effect of hidden layer size (neuron count)</h2>
+  <pre id="neuronSweep"></pre>
+
   <script src="/astermind.umd.js"></script>
+  <script src="/email-augment-data.js"></script>
   <script src="/main.js"></script>
 </body>
 
