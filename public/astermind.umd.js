@@ -3949,18 +3949,27 @@
             });
         }
         /* ============= Training ============= */
-        train() {
+        /**
+         * @param weights Optional per-training-pair weight, aligned 1:1 with the
+         * `pairs` array passed to the constructor. Only consumed by the classic
+         * `elm` engine (forwarded to `ELM.trainFromData`'s own `weights` option);
+         * ignored by `kernel`/`online`. Omitting it preserves prior behavior exactly.
+         */
+        train(weights) {
             // Build numeric X/Y
             const X = [];
             const Y = [];
-            for (const { input, label } of this.trainPairs) {
+            const W = [];
+            this.trainPairs.forEach(({ input, label }, i) => {
                 const vec = this.encoder.normalize(this.encoder.encode(input));
                 const idx = this.categories.indexOf(label);
                 if (idx === -1)
-                    continue;
+                    return;
                 X.push(vec);
                 Y.push(oneHot(idx, this.categories.length));
-            }
+                if (weights)
+                    W.push(weights[i]);
+            });
             if (this.engine === 'kernel') {
                 this.model.fit(X, Y);
                 return;
@@ -3970,7 +3979,7 @@
                 return;
             }
             // Classic ELM — options: { reuseWeights?, weights? }; do NOT pass "task"
-            this.model.trainFromData(X, Y);
+            this.model.trainFromData(X, Y, weights ? { weights: W } : undefined);
         }
         /* ============= Prediction ============= */
         predict(input, topN = 1) {
