@@ -1,0 +1,112 @@
+<!-- // © 2026 AsterMind AI Co. – All Rights Reserved.
+// Patent Pending US 63/897,713 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELM: Context-Based Next-Word Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .input-wrap {
+      position: relative;
+      max-width: 640px;
+    }
+
+    #sentenceInput {
+      width: 100%;
+      font-size: 1.25rem;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    #suggestions {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    #suggestions.show {
+      display: block;
+    }
+
+    .suggestion-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .suggestion-item:hover,
+    .suggestion-item.selected {
+      background: #e8f0fe;
+    }
+
+    .suggestion-prob {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    #status {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    #metrics {
+      margin-top: 0.75rem;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      color: #333;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0.75rem;
+      white-space: pre;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>ELM: Context-Based Next-Word Predictor</h1>
+  <p>Type a partial sentence; the model suggests the next word, mobile-keyboard style. Trained on a small
+    hand-written corpus — see README.md for how this differs from
+    <code>03-smart-form-autocomplete</code>.
+  </p>
+  <div class="input-wrap">
+    <input type="text" id="sentenceInput" placeholder="Loading model…" autocomplete="off" disabled />
+    <div id="suggestions"></div>
+  </div>
+  <div id="status"></div>
+  <pre id="metrics"></pre>
+
+  <script src="/astermind.umd.js"></script>
+  <script src="./context-corpus.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>

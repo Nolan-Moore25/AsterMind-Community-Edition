@@ -31,6 +31,7 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "dev": "vite",
     "dev:nolan-test": "cross-env DEMO=nolan-test vite",
+    "dev:word-predictor": "cross-env DEMO=nolan-test/word-predictor vite",
     "dev:news": "cross-env DEMO=ag-news-demo vite",
     "dev:autocomplete": "cross-env DEMO=autocomplete-chain vite",
     "dev:chain": "cross-env DEMO=chain-with-save vite",
