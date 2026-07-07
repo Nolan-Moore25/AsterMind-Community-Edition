@@ -1,11 +1,11 @@
 # ADR-0005 — Active-typing word prediction, weighted larger corpus, and calibrated confidence
 
-- **Status:** Proposed
+- **Status:** Accepted (with one sub-decision reversed post-implementation — see Revisions)
 - **Date:** 2026-07-07
 - **Author:** Nolan Moore
-- **Branch:** TBD — new branch off `main` (e.g. `feature/active-typing-word-prediction`); no work has started yet.
+- **Branch:** `Simple-Prediction` (off `main`, on the author's fork)
 - **Supersedes / Superseded by:** —
-- **Related:** [ADR-0004](./ADR-0004-context-based-next-word-predictor.md) (the whole-next-word predictor this extends); [IMPL-0004](../implementation-plans/IMPL-0004-context-based-next-word-predictor.md) (its execution); [IMPL-0005](../implementation-plans/IMPL-0005-active-typing-word-prediction.md) (this decision's execution plan); `examples/nolan-test/word-predictor/README.md` (the measured results this ADR responds to).
+- **Related:** [ADR-0004](./ADR-0004-context-based-next-word-predictor.md) (the whole-next-word predictor this extends); [IMPL-0004](../implementation-plans/IMPL-0004-context-based-next-word-predictor.md) (its execution); [IMPL-0005](../implementation-plans/IMPL-0005-active-typing-word-prediction.md) (this decision's execution plan); `examples/nolan-test/word-predictor/README.md` (the measured results this ADR responds to and that ground the Revisions section below).
 
 ---
 
@@ -172,11 +172,42 @@ Because IMPL-0004 already found raw scores are nearly flat (~1% regardless of ra
 
 ## 7. Sign-off Checklist
 
-- [ ] ADR reviewed
+- [x] ADR reviewed
 - [x] IMPL plan written and linked
-- [ ] Tests / guardrails in place
-- [ ] Docs updated
-- [ ] Branch correct for the work
+- [x] Tests / guardrails in place
+- [x] Docs updated
+- [x] Branch correct for the work
+
+---
+
+## Revisions
+
+- **2026-07-07 — Weighting (§2b) measured, and reversed.** Implementation
+  found that log²-context-frequency sample weighting, as specified above —
+  even after fixing a normalization bug that made an early version silently
+  over-regularize the entire fit — **decreases** val/test accuracy on the v2
+  corpus, and does so monotonically as the weighting gets more aggressive. A
+  five-way sweep (unweighted vs. four weighting-strength variants) put
+  unweighted training strictly ahead of every weighted configuration tested:
+  unweighted reached 36.7% val top-1 / 47.3% val top-3; the best weighted
+  variant reached 36.3% / 47.1%; the ADR's original proposed formula reached
+  only 33.6% / 42.3%. **Decision reversed:** `bootstrap()` trains unweighted.
+  `contextWeights()` and the `AutoComplete.train(weights?)` capability it
+  depends on are still implemented and tested — this is a validated negative
+  result about *this corpus*, not evidence the mechanism itself is broken —
+  but the weighting is not applied in the shipped demo. Full ablation table
+  and the reasoning for why down-weighting doesn't help matched-distribution
+  accuracy: `examples/nolan-test/word-predictor/README.md` § "Weighting: a
+  negative result". §2b, §3 (Corpus weighting), and §4 above are left
+  as-written to preserve the original reasoning and the (falsified)
+  hypothesis behind it — this section is the record of what actually
+  happened.
+- **2026-07-07 — Active-typing (§2a) and calibration (§2c) confirmed as
+  proposed.** Both shipped essentially as designed. Active-typing's
+  hand-derived check (`"go to the p"` → `park, playground, party, pool,
+  please`) matches the ADR's worked example. Calibration's ECE gate passed
+  on the held-out test split (raw ECE 0.0581 → calibrated 0.0289) and is
+  applied. See `README.md` for full numbers.
 
 ---
 
