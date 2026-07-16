@@ -30,7 +30,7 @@ Extend the shipped `examples/nolan-test/word-predictor/` demo so that (a) it pre
   - Promotion out of `examples/nolan-test/` into `examples/practical-examples/` — still Nolan's sandbox.
 - **Assumptions / preconditions:**
   - IMPL-0004 is shipped and its numbers (227 sentences, 156-word vocab, val top-1 39.6%/top-3 57.1%, ~1% raw calibration) are the baseline this plan measures against.
-  - `window.astermind` already exposes `Matrix` (used by `examples/nolan-test/main.js:11`) for the calibration regression's closed-form solve — confirmed, no new export needed.
+  - `window.astermind` already exposes `Matrix` (used by `examples/nolan-test/ham-spam/main.js:11`) for the calibration regression's closed-form solve — confirmed, no new export needed.
 
 ## 3. Affected Areas
 
@@ -54,7 +54,7 @@ The riskiest single step is the `AutoComplete.ts` edit — it's the only change 
 1. **`AutoComplete.train(weights?)`** — edit `src/tasks/AutoComplete.ts:202-226` to accept an optional `weights: number[]` and forward it to `trainFromData`. Verification: existing call sites (IMPL-0004's `model.train()`, `tests/practical-examples.test.ts` `03-smart-form-autocomplete` case, `tests/BindUI.test.ts` if applicable) still pass unmodified — confirms backward compatibility. Add a new test that trains the same pairs with and without a skewed weight vector and asserts the fitted `beta` differs (confirms weights actually reach the ridge solve, not just accepted and dropped).
 2. **Grow the corpus** — extend `context-corpus.js` from 227 to ≥650 sentences. Reuse and extend the ~35 existing lead-in-phrase groups from IMPL-0004 Phase 0, and add new groups chosen so that **≥15 contexts have ≥3 plausible next words sharing a first letter** (e.g. extend the `"go to the ___"` group with `park, playground, plaza, pool, mall, market, museum, ...` so a `"p"`-prefix filter has real width to demonstrate). Verification: a short Node script (thrown away after use, same pattern as IMPL-0004's verification harness) counts sentences and checks the prefix-sharing requirement before any pipeline code changes.
 3. **Three-way split** — change `splitCorpus()` to return `trainSentences`/`valSentences`/`testSentences` at a 70/15/15 ratio, sentence-level, same seeded-shuffle mechanism as v1. Verification: split sizes sum to the total; no sentence's tokens appear in more than one split (same hand-check style as IMPL-0004 Phase 0).
-4. **Raise `maxVocab`** to `1500` (from `750`) to match the larger corpus, following `nolan-test/main.js:16`'s established value. Verification: log dropped-pair count and percentage on the new corpus; if it's a much larger fraction than IMPL-0004's 11.9%, that's a signal to revisit `maxVocab`/`minLabelFreq` before proceeding, per the existing IMPL-0004 diagnostic loop.
+4. **Raise `maxVocab`** to `1500` (from `750`) to match the larger corpus, following `nolan-test/ham-spam/main.js:16`'s established value. Verification: log dropped-pair count and percentage on the new corpus; if it's a much larger fraction than IMPL-0004's 11.9%, that's a signal to revisit `maxVocab`/`minLabelFreq` before proceeding, per the existing IMPL-0004 diagnostic loop.
 5. **Context-frequency weighting** — implement `contextWeights(trainPairs)` per ADR-0005 §2(b), clamped to `[0.05, 3.0]`. Train with `model.train(contextWeights(trainPairs))`. Verification: log the weight distribution (min/max/median); confirm the most-repeated context (expected: `"i"` or similar, per IMPL-0004's finding) lands near the floor and a rare context lands near 1.0.
 6. **Re-measure classifier accuracy** — train top-1, val top-1/top-3, test top-1/top-3, reported the same way `README.md` "Results" reports v1's numbers. Compare directly against the 39.6%/57.1% baseline — record the actual delta, don't assume improvement.
 7. **Active-typing prediction** — implement `splitInput()`, update `getSuggestions()` to request the full ranked distribution (`model.predict(context, vocab.length)`) and filter by prefix, update `selectSuggestion()` to replace-vs-append based on `prefix`. Verification: hand-derived check from ADR-0005 §6 (`"go to the p"` → corpus-plausible `p`-words only); confirm `prefix === ''` (trailing-space input) reproduces v1's exact append behavior byte-for-byte on a known example.
@@ -65,7 +65,7 @@ The riskiest single step is the `AutoComplete.ts` edit — it's the only change 
 
 ## 6. Data / Migration
 
-No database/schema migration — this is client-side IndexedDB cache state only. Migration path: bumping `MODEL_KEY` to `word_predictor_v2` (step 10) is the entire migration; the old `word_predictor_v1` entry is simply never read again and can be left as inert, unused space in the browser's IndexedDB (same pattern `nolan-test/main.js` already uses across its own `_v5` version history — no explicit cleanup of prior versions is this repo's established practice). Rollback: revert to the prior `main.js`/`context-corpus.js`/`AutoComplete.ts`; a `word_predictor_v2` entry left in a browser's IndexedDB is simply ignored by the reverted code, same as the forward migration.
+No database/schema migration — this is client-side IndexedDB cache state only. Migration path: bumping `MODEL_KEY` to `word_predictor_v2` (step 10) is the entire migration; the old `word_predictor_v1` entry is simply never read again and can be left as inert, unused space in the browser's IndexedDB (same pattern `nolan-test/ham-spam/main.js` already uses across its own `_v5` version history — no explicit cleanup of prior versions is this repo's established practice). Rollback: revert to the prior `main.js`/`context-corpus.js`/`AutoComplete.ts`; a `word_predictor_v2` entry left in a browser's IndexedDB is simply ignored by the reverted code, same as the forward migration.
 
 ## 7. Testing & Verification
 
@@ -94,17 +94,17 @@ No server/deploy surface — this is a static-HTML browser demo served via `npm 
 
 ## 10. Open Questions
 
-- [ ] Does the reliability check in step 8/9 show a linear `(rank, rawScore) → isCorrect` relationship, or does the data look non-monotonic enough to require the isotonic/bucketed fallback (ADR-0005 §3, calibration Option C) instead?
-- [ ] Does raising `maxVocab` to 1500 on a ~650-sentence corpus land the dropped-pair percentage near IMPL-0004's 11.9%, or does the corpus need to grow further / `minLabelFreq` need adjusting to hit a comparable rate?
-- [ ] Does the log²-weighting measurably move val/test accuracy versus an unweighted run on the *same* v2 corpus (isolating the weighting's effect from the corpus-size effect), or is corpus growth alone doing most of the work? Worth an ablation run before finalizing the numbers in `README.md`.
+- [x] Does the reliability check in step 8/9 show a linear `(rank, rawScore) → isCorrect` relationship, or does the data look non-monotonic enough to require the isotonic/bucketed fallback (ADR-0005 §3, calibration Option C) instead? — **Answered:** the linear fit cleared its own gate (test ECE 0.0581 raw → 0.0289 calibrated, roughly halved) and is applied; the reliability table isn't perfectly monotonic at the high-confidence end (small bucket sizes there), but well enough that the isotonic fallback wasn't needed. See `README.md` "Confidence calibration".
+- [x] Does raising `maxVocab` to 1500 on a ~650-sentence corpus land the dropped-pair percentage near IMPL-0004's 11.9%, or does the corpus need to grow further / `minLabelFreq` need adjusting to hit a comparable rate? — **Answered:** 11.9% exactly, matching v1 to one decimal place. The 1500 cap isn't even binding (uncapped label set is 317 words); `minLabelFreq` remains the real constraint, same as v1. No further adjustment needed.
+- [x] Does the log²-weighting measurably move val/test accuracy versus an unweighted run on the *same* v2 corpus (isolating the weighting's effect from the corpus-size effect), or is corpus growth alone doing most of the work? Worth an ablation run before finalizing the numbers in `README.md`. — **Answered, and the finding reverses the plan's assumption:** a five-way ablation (unweighted vs. four weighting strengths) found weighting *hurts* accuracy monotonically with strength; unweighted wins outright (36.7%/47.3% vs. the best weighted config's 36.3%/47.1%). Shipped unweighted. See `README.md` "Weighting: a negative result" and ADR-0005's Revisions section.
 
 ## 11. Done Checklist
 
-- [ ] All steps complete and verified
-- [ ] Tests green (`npm test`, including new `AutoComplete.ts` coverage)
-- [ ] Docs / ADR updated (`README.md` rewritten with v2 measured numbers; ADR-0005 sign-off checklist updated)
-- [ ] Deployed / merged to correct branch
-- [ ] Sign-off
+- [x] All steps complete and verified
+- [x] Tests green (`npm test`, including new `AutoComplete.ts` coverage — 115 tests passing)
+- [x] Docs / ADR updated (`README.md` rewritten with v2 measured numbers; ADR-0005 sign-off checklist and Revisions section updated)
+- [x] Deployed / merged to correct branch (`Simple-Prediction`, pushed to the author's fork)
+- [x] Sign-off — closed out via the IMPL-0007 audit (2026-07-07), which re-verified every "Done when"/checklist item against the live demo rather than trusting the paperwork alone. See IMPL-0007 § Audit.
 
 ---
 
@@ -113,4 +113,4 @@ No server/deploy surface — this is a static-HTML browser demo served via `npm 
 - [ADR-0005](../ADRs/ADR-0005-active-typing-word-prediction.md) — the decision this plan executes.
 - [ADR-0004](../ADRs/ADR-0004-context-based-next-word-predictor.md) / [IMPL-0004](./IMPL-0004-context-based-next-word-predictor.md) — the v1 predictor and baseline this plan extends and measures against.
 - `examples/nolan-test/word-predictor/README.md` — v1's measured results; will be rewritten in step 11 with v2 numbers.
-- `examples/nolan-test/main.js` — source of the weighting and three-way-split precedents reused here.
+- `examples/nolan-test/ham-spam/main.js` — source of the weighting and three-way-split precedents reused here.

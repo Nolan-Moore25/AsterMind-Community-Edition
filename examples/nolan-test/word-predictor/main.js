@@ -39,7 +39,7 @@ const ECE_BUCKETS = 10;
 // Cached payload shape changed (weighting metadata, calibration
 // coefficients) — bump the key so a v1 cache entry is never loaded against
 // v2 code (ADR-0005 §5), same versioning-on-shape-change precedent as
-// ../main.js's `spam_ham_classifier_v5`.
+// ../ham-spam/main.js's `spam_ham_classifier_v5`.
 const MODEL_KEY = 'word_predictor_v2';
 
 // The trained beta matrix (up to a 1500-class output layer) is likely to
@@ -75,14 +75,14 @@ async function idbSet(key, value) {
     });
 }
 
-// Same tokenizer shape as ../main.js, extended to keep word-internal
+// Same tokenizer shape as ../ham-spam/main.js, extended to keep word-internal
 // apostrophes ("don't") as a single token.
 function tokenize(text) {
     return String(text || '').toLowerCase().match(/[a-z0-9']+/g) || [];
 }
 
 // Deterministic shuffle so the split is reproducible across reloads, the
-// same idea as ../main.js relying on a pre-shuffled dataset.
+// same idea as ../ham-spam/main.js relying on a pre-shuffled dataset.
 function seededShuffle(arr, seed) {
     const out = arr.slice();
     let s = seed;
@@ -126,7 +126,7 @@ function buildContextPairs(sentences, k = K) {
 
 // Vocabulary is learned from the training split only, so the validation and
 // test splits stay an honest estimate of how the model does on unseen words.
-// Same shape as buildVocab() in ../main.js, but counting label frequency
+// Same shape as buildVocab() in ../ham-spam/main.js, but counting label frequency
 // across training pairs rather than per-document feature presence.
 function buildNextWordVocab(trainPairs, { minLabelFreq, maxVocab }) {
     const freq = new Map();
@@ -342,7 +342,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function updateSelection(items, index) {
         items.forEach((item, i) => item.classList.toggle('selected', i === index));
-        if (items[index]) items[index].scrollIntoView({ block: 'nearest' });
+        if (items[index]) items[index].scrollIntoView?.({ block: 'nearest' });
     }
 
     function handleSuggestionNavigation(event) {
@@ -388,7 +388,14 @@ window.addEventListener('DOMContentLoaded', () => {
         if (input.value.trim()) renderSuggestions(getSuggestions(input.value));
     });
 
-    async function bootstrap() {
+    // A degenerate corpus/vocab (e.g. every candidate word filtered out by
+    // minLabelFreq) makes ELM.trainFromData throw synchronously inside this
+    // async function — caught by bootstrap()'s wrapper below so the page
+    // fails visibly (status text + console.error) instead of hanging with
+    // an unhandled rejection and a permanently-disabled input. Found via
+    // IMPL-0007's audit of IMPL-0004/0005's never-actually-run gate-break
+    // negative control.
+    async function bootstrapUnsafe() {
         setStatus('📚 Building training pairs from corpus…');
         await new Promise((r) => setTimeout(r, 0));
 
@@ -503,6 +510,15 @@ window.addEventListener('DOMContentLoaded', () => {
         setStatus(`✅ Ready — val top-1 ${(valTop1 * 100).toFixed(1)}% · val top-3 ${(valTop3 * 100).toFixed(1)}% (n=${valPairs.length})`);
         input.disabled = false;
         input.placeholder = 'Type a sentence… e.g. "i want to go to the p"';
+    }
+
+    async function bootstrap() {
+        try {
+            await bootstrapUnsafe();
+        } catch (e) {
+            console.error('Bootstrap failed:', e);
+            setStatus(`❌ Failed to load: ${e instanceof Error ? e.message : String(e)}`);
+        }
     }
 
     bootstrap();

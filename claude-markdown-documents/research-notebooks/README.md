@@ -27,6 +27,7 @@ The three pair naturally: a notebook documents the investigation that *led to* a
 | [NB-002](./NB-002-smart-pedagogy-research.md) | **SMART teaching-method literature review** | Disambiguating "SMART" in the education literature, the case for A-SMART + TSDR + Backward Design, sources cited. |
 | [NB-003](./NB-003-v4-cleanup-chronicle.md) | **v3.0.0 → v4.0.0 cleanup chronicle** | The full narrative of the IMPL-0001 work across six phases: scoping, deletion, dependency cleanup, docs rewrite, test coverage, release. |
 | [NB-004](./NB-004-lesson-curriculum-design.md) | **Lesson curriculum design and L00 refactor** | The decision to canonise the elm-explination demo, the lesson template scaffold (IMPL-0002 P0), the L00 refactor (IMPL-0002 P1), the path forward. |
+| [NB-005](./NB-005-random-fourier-features.md) | **Random Fourier Features, from scratch** | Bochner's theorem derived down to `src/pro/math/rff.ts`, a measured two-spirals worked example on real library code (`buildRFF`/`ridgeSolvePro`/`KernelELM`), RFF vs Nyström, and the surprises (capstone deliverable, ADR-0006). |
 
 ## When to write a notebook
 

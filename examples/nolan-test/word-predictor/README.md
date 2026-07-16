@@ -67,7 +67,7 @@ calibration regression (below) can be validated on data it was never fit on
 - `buildNextWordVocab(trainPairs, { minLabelFreq: 2, maxVocab: 1500 })` —
   counts label frequency **on the training split only**, filters rare (<2
   occurrences) words, caps at 1500 (raised from v1's 750 to match the larger
-  corpus, mirroring `../main.js`'s established `maxVocab: 1500`). The cap
+  corpus, mirroring `../ham-spam/main.js`'s established `maxVocab: 1500`). The cap
   isn't actually binding — the uncapped label set is 317 words, well under
   1500 — so `minLabelFreq` remains the real constraint, same as v1.
 - Pairs whose label falls outside the capped vocab are **dropped**, not
