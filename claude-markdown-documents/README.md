@@ -22,6 +22,7 @@ Planning and narrative artifacts for the AsterMind-Community repository. Three k
 | 0006 | [Nolan capstone: infrastructure + RFF notebook](./ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md) | [Plan 0006](./implementation-plans/IMPL-0006-nolan-capstone-infrastructure-and-rff-notebook.md) | Discussions runbook, `docs/PUBLISHING.md`, and NB-005 with a permanent seeded worked-example suite |
 | 0007 | [Active learning and training speed](./ADRs/ADR-0007-active-learning-and-training-speed.md) | [Plan 0007](./implementation-plans/IMPL-0007-active-learning-and-training-speed.md) | Active learning on Enter, batched-predict training-speed optimization, and an audit of ADR-0004/ADR-0005 |
 | 0008 | [Shorten NB-005 research notebook](./ADRs/ADR-0008-shorten-nb-005-research-notebook.md) | [Plan 0008](./implementation-plans/IMPL-0008-shorten-nb-005-research-notebook.md) | Cut Appendix A duplication, drop Mermaid/ASCII renders, tighten prose — 1033 → ~440–501 lines |
+| 0009 | [Consolidate repo navigation and naming](./ADRs/ADR-0009-consolidate-repo-navigation-and-naming.md) | [Plan 0009](./implementation-plans/IMPL-0009-consolidate-repo-navigation-and-naming.md) | Group intern-program work (`lessons`/`capstones`/`sandboxes`) and demo work (`demos`/`practical-examples`/`node-scripts`) under two clear parents; fix misleading folder names; close NB-001's open question |
 
 ### Research notebooks
 
