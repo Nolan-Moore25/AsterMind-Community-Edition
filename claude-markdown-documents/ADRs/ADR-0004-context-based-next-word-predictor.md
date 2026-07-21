@@ -1,9 +1,9 @@
 # ADR-0004 — Context-based next-word predictor (mobile-keyboard-style autocomplete)
 
-- **Status:** Proposed
+- **Status:** Accepted — implemented, shipped, and (as of the IMPL-0007 audit, 2026-07-07) fully re-verified against the live demo rather than left at "checked off by inference"
 - **Date:** 2026-07-06
 - **Author:** Nolan Moore 
-- **Branch:** TBD — new branch off `main` (e.g. `feature/word-predictor-demo`); no work has started yet.
+- **Branch:** `Simple-Prediction` (off `main`, on the author's fork)
 - **Supersedes / Superseded by:** —
 - **Related:** [ADR-0003](./ADR-0003-summer-2026-curriculum-structure.md) (curriculum context — this demo is example/portfolio work, not a required capstone); [IMPL-0004](../implementation-plans/IMPL-0004-context-based-next-word-predictor.md) (execution plan).
 
@@ -14,7 +14,7 @@
 AsterMind's `AutoComplete` task class (`src/tasks/AutoComplete.ts`) currently has two example usages in the repo, and both do **character-level completion of a single field value**, not next-word prediction from context:
 
 - `examples/practical-examples/03-smart-form-autocomplete/main.js:187-236` builds training pairs by slicing each example string (a name, an email, a job title) into `(prefix, remaining-characters)` pairs — e.g. `"Sarah Wil" → "liams"`. The model predicts *the rest of the current field value*, not the next word.
-- `examples/nolan-test/main.js` is a bag-of-words ELM **classifier** (spam vs. ham) — categorical prediction over a fixed 2-class label set, built from `buildVocab()`/`vectorize()` helpers that turn text into a fixed-size 0/1 feature vector.
+- `examples/nolan-test/ham-spam/main.js` is a bag-of-words ELM **classifier** (spam vs. ham) — categorical prediction over a fixed 2-class label set, built from `buildVocab()`/`vectorize()` helpers that turn text into a fixed-size 0/1 feature vector.
 
 Neither example does what a phone keyboard does: given a **partial sentence** (`"i want to go to the "`), predict the most likely **next whole word** (`"store"`, `"gym"`, `"movies"`). That is a distinct task shape — the model needs to consume a variable-length *context* of previously-typed words and classify over a **vocabulary of candidate next words**, not over remaining characters of the word currently being typed.
 
@@ -44,7 +44,7 @@ pairs  = [
 
 `input` is capped to the last `K` tokens (shorter contexts at the start of a sentence are kept as-is, mirroring how `03`'s prefix loop starts at `i = 1`). This is the same "explode one example into many training pairs" move `03` uses (`main.js:194-206`), just windowed by *words* instead of sliced by *characters*.
 
-**Vocabulary capping (borrowed from `nolan-test`).** The candidate label set is not "every distinct next-word in the corpus" — it is built the same way `buildVocab()` builds spam-classifier features (`examples/nolan-test/main.js:83-95`): document-frequency-filtered and capped to a `maxVocab` size (proposed default: 750), computed **only from the training split** to avoid leaking validation words into the label set. Training pairs whose `label` falls outside the capped vocabulary are dropped (not remapped to an `<unk>` bucket — an untrained "unknown word" prediction is worse than no suggestion, which the UI already handles as an empty dropdown).
+**Vocabulary capping (borrowed from `nolan-test`).** The candidate label set is not "every distinct next-word in the corpus" — it is built the same way `buildVocab()` builds spam-classifier features (`examples/nolan-test/ham-spam/main.js:83-95`): document-frequency-filtered and capped to a `maxVocab` size (proposed default: 750), computed **only from the training split** to avoid leaking validation words into the label set. Training pairs whose `label` falls outside the capped vocabulary are dropped (not remapped to an `<unk>` bucket — an untrained "unknown word" prediction is worse than no suggestion, which the UI already handles as an empty dropdown).
 
 **Model.** Classic `AutoComplete` with the default `'elm'` engine (no need for `KernelELM`/`OnlineELM` — see Options, row D). Proposed hyperparameters, following `03`'s "smaller model for faster inference" reasoning (`main.js:222`) but scaled up for the larger label set:
 
@@ -57,7 +57,7 @@ new AutoComplete(trainingPairs, {
 });
 ```
 
-**Corpus.** A small bundled JS/JSON file of everyday sentences (same shape as `examples/nolan-test/email-augment-data.js`) — common phrases and their natural continuations, curated by hand or lightly sourced, split train/val the same stratified way `splitDataset()` does (`examples/nolan-test/main.js:129-145`), just without the ham/spam stratification (there's one "class" of text here, not two).
+**Corpus.** A small bundled JS/JSON file of everyday sentences (same shape as `examples/nolan-test/email-augment-data.js`) — common phrases and their natural continuations, curated by hand or lightly sourced, split train/val the same stratified way `splitDataset()` does (`examples/nolan-test/ham-spam/main.js:129-145`), just without the ham/spam stratification (there's one "class" of text here, not two).
 
 **Caching.** Reuse the IndexedDB pattern from `nolan-test` (`idbOpen`/`idbGet`/`idbSet`, `main.js:50-75`) rather than `localStorage`, since a 750-class output layer's `beta` matrix is likely to exceed `localStorage`'s ~5–10MB quota the same way the spam classifier's did.
 
@@ -98,17 +98,17 @@ Option A is the only one that actually satisfies "predict the next word from typ
 
 ## 7. Sign-off Checklist
 
-- [ ] ADR reviewed
+- [x] ADR reviewed
 - [x] IMPL plan written and linked
-- [ ] Tests / guardrails in place
-- [ ] Docs updated
-- [ ] Branch correct for the work
+- [x] Tests / guardrails in place
+- [x] Docs updated
+- [x] Branch correct for the work
 
 ---
 
 ## See also
 
 - [ADR-0003](./ADR-0003-summer-2026-curriculum-structure.md) — curriculum/portfolio context this demo sits alongside.
-- `examples/nolan-test/main.js` — vocabulary-capping, IndexedDB caching, and metrics-gating patterns reused here.
+- `examples/nolan-test/ham-spam/main.js` — vocabulary-capping, IndexedDB caching, and metrics-gating patterns reused here.
 - `examples/practical-examples/03-smart-form-autocomplete/main.js` — debounced suggestion-dropdown UI reused here.
 - `src/tasks/AutoComplete.ts` — the underlying task class; no changes to this file are anticipated.

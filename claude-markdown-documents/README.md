@@ -17,14 +17,11 @@ Planning and narrative artifacts for the AsterMind-Community repository. Three k
 | 0001 | [Consolidate repo and prepare for interns](./ADRs/ADR-0001-consolidate-repo-and-prepare-for-interns.md) | [Plan 0001](./implementation-plans/IMPL-0001-consolidate-repo-and-prepare-for-interns.md) | Drop the 21 variant scaffolds, reconcile /pro/elm/ duplicates, rewrite docs for newcomers |
 | 0002 | [elm-explination as the canonical lesson model](./ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md) | [Plan 0002](./implementation-plans/IMPL-0002-canonical-lesson-series.md) | Lesson format + A-SMART/TSDR/Backward-Design pedagogy. (Phase 0–1 shipped; later phases superseded by IMPL-0003.) |
 | 0003 | [Summer 2026 curriculum structure](./ADRs/ADR-0003-summer-2026-curriculum-structure.md) | [Plan 0003](./implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md) | 7-lesson curriculum (L00–L06) + per-intern capstone lanes, fitted to the June 1 – July 24 cohort window |
-<<<<<<< Updated upstream
-=======
 | 0004 | [Context-based next-word predictor](./ADRs/ADR-0004-context-based-next-word-predictor.md) | [Plan 0004](./implementation-plans/IMPL-0004-context-based-next-word-predictor.md) | Whole-next-word prediction demo (`examples/nolan-test/word-predictor/`) |
 | 0005 | [Active-typing word prediction](./ADRs/ADR-0005-active-typing-word-prediction.md) | [Plan 0005](./implementation-plans/IMPL-0005-active-typing-word-prediction.md) | Mid-word prefix prediction, larger corpus, calibrated confidence (v2 of the word predictor) |
 | 0006 | [Nolan capstone: infrastructure + RFF notebook](./ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md) | [Plan 0006](./implementation-plans/IMPL-0006-nolan-capstone-infrastructure-and-rff-notebook.md) | Discussions runbook, `docs/PUBLISHING.md`, and NB-005 with a permanent seeded worked-example suite |
 | 0007 | [Active learning and training speed](./ADRs/ADR-0007-active-learning-and-training-speed.md) | [Plan 0007](./implementation-plans/IMPL-0007-active-learning-and-training-speed.md) | Active learning on Enter, batched-predict training-speed optimization, and an audit of ADR-0004/ADR-0005 |
 | 0008 | [Shorten NB-005 research notebook](./ADRs/ADR-0008-shorten-nb-005-research-notebook.md) | [Plan 0008](./implementation-plans/IMPL-0008-shorten-nb-005-research-notebook.md) | Cut Appendix A duplication, drop Mermaid/ASCII renders, tighten prose — 1033 → ~440–501 lines |
->>>>>>> Stashed changes
 
 ### Research notebooks
 
@@ -34,6 +31,7 @@ Planning and narrative artifacts for the AsterMind-Community repository. Three k
 | [NB-002](./research-notebooks/NB-002-smart-pedagogy-research.md) | SMART teaching-method literature review | The disambiguation and case for A-SMART + TSDR + Backward Design |
 | [NB-003](./research-notebooks/NB-003-v4-cleanup-chronicle.md) | v3.0.0 → v4.0.0 cleanup chronicle | Six-phase IMPL-0001 execution narrative, metrics, and lessons learned |
 | [NB-004](./research-notebooks/NB-004-lesson-curriculum-design.md) | Lesson curriculum design and L00 refactor | Template scaffold + L00 refactor; curriculum status; the "L00 stays bespoke" decision |
+| [NB-005](./research-notebooks/NB-005-random-fourier-features.md) | Random Fourier Features, from scratch | Bochner's theorem → `src/pro/math/rff.ts`, measured two-spirals worked example, RFF vs Nyström |
 
 ## Conventions
 
