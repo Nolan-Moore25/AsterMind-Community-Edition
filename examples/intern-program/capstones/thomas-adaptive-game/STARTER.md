@@ -8,7 +8,7 @@
 
 > *"By July 24, 2026, Thomas will ship a static-HTML browser game (zero server) that uses `OnlineELM` to predict the player's next move across ≥30 consecutive rounds, achieving a measurable improvement in agent win rate of ≥10 percentage points between rounds 1–10 (untrained baseline) and rounds 21–30 (after online learning), and present it live in a 5-minute on-site demo during the final program week."*
 
-Source: [ADR-0003 § Capstone lanes](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes).
+Source: [ADR-0003 § Capstone lanes](../../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes).
 
 ## Why Rock-Paper-Scissors
 
@@ -19,7 +19,7 @@ Source: [ADR-0003 § Capstone lanes](../../../claude-markdown-documents/ADRs/ADR
 ## What we'll provide
 
 - **L04 — Online learning with `OnlineELM`** (capability lesson, completed Week 5). Covers RLS update, forgetting factor, batch-vs-online, and the API of `window.astermind.OnlineELM`.
-- **The lesson scaffold** at [`examples/lessons/_template/`](../../lessons/_template/) gives you a styling baseline if you choose to wrap the demo in a deck format. (Optional — game can be a standalone page.)
+- **The lesson scaffold** at [`examples/intern-program/lessons/_template/`](../../lessons/_template/) gives you a styling baseline if you choose to wrap the demo in a deck format. (Optional — game can be a standalone page.)
 - **The UMD bundle** at `/astermind.umd.js` — load with `<script src="/astermind.umd.js">`, then `window.astermind.OnlineELM` is available.
 - **A code review** with Julian end-of-week from Week 5 onward.
 
@@ -45,12 +45,12 @@ The agent logic:
 
 When all are ticked, the capstone is done.
 
-- [ ] Code lives at `examples/capstones/thomas-adaptive-game/` with `index.html`, `game.js`, and a `README.md` Sam could read cold.
+- [ ] Code lives at `examples/intern-program/capstones/thomas-adaptive-game/` with `index.html`, `game.js`, and a `README.md` Sam could read cold.
 - [ ] No server required — static HTML + JS only.
 - [ ] Uses `window.astermind.OnlineELM` (not a hand-rolled model).
 - [ ] Game runs at least 30 rounds without state corruption (round counter advances, win-rate updates, no console errors).
-- [ ] Recorded demo shows a measurable ≥10 percentage point win-rate gain between rounds 1–10 and rounds 21–30 against a non-random player (you, or a scripted "biased player" baseline). Recording lives at `examples/capstones/thomas-adaptive-game/demo-recording.md` as a frame-by-frame description, or as an embedded gif/video link.
-- [ ] vitest test under `tests/capstones/thomas-adaptive-game/` covers the non-rendering game logic (move encoding, win/loss judgement, counter-selection function).
+- [ ] Recorded demo shows a measurable ≥10 percentage point win-rate gain between rounds 1–10 and rounds 21–30 against a non-random player (you, or a scripted "biased player" baseline). Recording lives at `examples/intern-program/capstones/thomas-adaptive-game/demo-recording.md` as a frame-by-frame description, or as an embedded gif/video link.
+- [ ] vitest test under `tests/intern-program/capstones/thomas-adaptive-game/` covers the non-rendering game logic (move encoding, win/loss judgement, counter-selection function).
 - [ ] `npm run build` and `npm test` both pass on a fresh clone.
 - [ ] 5-minute presentation deck exists at `presentation.md` (or in slides.json if you wrap it in the lesson scaffold).
 
@@ -83,6 +83,6 @@ The A-SMART bar transfers as-is.
 
 ## Where this is enforced
 
-- **vitest** in `tests/capstones/thomas-adaptive-game/` (you write these).
+- **vitest** in `tests/intern-program/capstones/thomas-adaptive-game/` (you write these).
 - **The dry-run on Jul 17** — Julian and Nolan will play 30 rounds against your agent live. The win-rate gain has to be visible on screen.
 - **The on-site presentation Jul 24** — Sam plays a few rounds. Same bar.

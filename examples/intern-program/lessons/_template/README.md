@@ -12,10 +12,10 @@ Every lesson has the same shape so:
 
 ## How to make a new lesson
 
-1. **Copy this directory** to `examples/lessons/L<NN>-<slug>/`. Use the next available `<NN>` and a short slug:
+1. **Copy this directory** to `examples/intern-program/lessons/L<NN>-<slug>/`. Use the next available `<NN>` and a short slug:
 
    ```bash
-   cp -R examples/lessons/_template examples/lessons/L05-online-learning
+   cp -R examples/intern-program/lessons/_template examples/intern-program/lessons/L05-online-learning
    ```
 
 2. **Edit the five files** (in any order — they reference each other by string id, so go where it's easiest):
@@ -36,13 +36,13 @@ Every lesson has the same shape so:
    npm run dev:lesson:05
    ```
 
-4. **Add it to the curriculum index** at [`examples/lessons/README.md`](../README.md) so it shows up in the table.
+4. **Add it to the curriculum index** at [`examples/intern-program/lessons/README.md`](../README.md) so it shows up in the table.
 
 5. **Open a PR.** The vitest schema check will validate your `slides.json` automatically.
 
 ## What every lesson README should contain
 
-Lessons use **A-SMART learning outcomes** (Action-oriented, Specific, Measurable, Achievable, Relevant, Time-bound) and a **TSDR slide arc** (Tell, Show, Do, Review). See [ADR-0002 § Lesson pedagogy](../../../claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md) for the full rationale.
+Lessons use **A-SMART learning outcomes** (Action-oriented, Specific, Measurable, Achievable, Relevant, Time-bound) and a **TSDR slide arc** (Tell, Show, Do, Review). See [ADR-0002 § Lesson pedagogy](../../../../claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md) for the full rationale.
 
 When you replace this README for your lesson, follow this shape:
 

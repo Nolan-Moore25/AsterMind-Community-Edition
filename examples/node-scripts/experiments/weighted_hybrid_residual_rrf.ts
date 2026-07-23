@@ -70,8 +70,8 @@
  *  - Weights (auto-cached): ./elm_weights/paragraph_chain_L*.json, student_q2delta_*.json
  *
  * Usage
- *   npx ts-node --esm node_examples/train_weighted_hybrid_multilevel_pipeline.ts
- *   npx ts-node --esm node_examples/train_weighted_hybrid_multilevel_pipeline.ts \
+ *   npx ts-node --esm examples/node-scripts/train_weighted_hybrid_multilevel_pipeline.ts
+ *   npx ts-node --esm examples/node-scripts/train_weighted_hybrid_multilevel_pipeline.ts \
  *     --vocab=8000 --seq=256,128 --alpha=0.65 --stage1=200 --topK=5
  */
 

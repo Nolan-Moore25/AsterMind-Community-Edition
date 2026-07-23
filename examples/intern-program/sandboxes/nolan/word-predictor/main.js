@@ -44,7 +44,7 @@ const MODEL_KEY = 'word_predictor_v2';
 
 // The trained beta matrix (up to a 1500-class output layer) is likely to
 // exceed localStorage's ~5-10MB quota the same way the spam classifier's
-// did, so this reuses nolan-test's IndexedDB caching instead.
+// did, so this reuses the ham-spam sandbox's IndexedDB caching instead.
 const DB_NAME = 'astermind_models';
 const STORE = 'models';
 

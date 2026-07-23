@@ -76,5 +76,5 @@ There's no universally right threshold — it depends on the cost of a missed at
 ## Where this is enforced
 
 - **`tests/lessons-schema.test.ts`** validates this lesson's `slides.json`.
-- The `IntentClassifier` config used in the demo matches the smoke-test config in [`tests/IntentClassifier.test.ts`](../../../tests/IntentClassifier.test.ts), so the lesson stays aligned with what's shipped.
+- The `IntentClassifier` config used in the demo matches the smoke-test config in [`tests/IntentClassifier.test.ts`](../../../../tests/IntentClassifier.test.ts), so the lesson stays aligned with what's shipped.
 - Precision/recall are computed in plain JS in the demo (no library helper); this is intentional — Jarrett's capstone will compute them the same way.

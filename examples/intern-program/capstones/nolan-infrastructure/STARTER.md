@@ -9,7 +9,7 @@
 
 > *"By July 24, 2026, Nolan will publish: (a) a configured GitHub Discussions space with ≥3 categories and ≥5 seeded starter threads, (b) `docs/PUBLISHING.md` documenting an end-to-end NPM publish dry-run with provenance + 2FA, (c) `claude-markdown-documents/research-notebooks/NB-005-random-fourier-features.md` deriving Random Fourier Features from scratch with a runnable worked example referencing `src/pro/math/`, and present a 10-minute on-site walkthrough during the final program week."*
 
-Source: [ADR-0003 § Capstone lanes](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes).
+Source: [ADR-0003 § Capstone lanes](../../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#3-capstone-lanes-with-a-smart-outcomes).
 
 ## Why this lane
 
@@ -37,7 +37,7 @@ The community-edition repo doesn't have Discussions enabled yet. That's how inte
 **Why this is critical:** v4.0.0 is tagged in git but is **not yet `npm publish`'d**. This deliverable is what lets Julian push that button with confidence.
 
 **What you'll do:**
-- Read the existing [package.json](../../../package.json) — note `publishConfig`, `prepublishOnly` script, `files` field.
+- Read the existing [package.json](../../../../package.json) — note `publishConfig`, `prepublishOnly` script, `files` field.
 - Read [npm's official 2FA-for-publish docs](https://docs.npmjs.com/configuring-two-factor-authentication) and [npm provenance docs](https://docs.npmjs.com/generating-provenance-statements).
 - Write `docs/PUBLISHING.md` covering:
   - Prerequisites (npm account, 2FA enabled, org membership in `@astermind`)
@@ -51,7 +51,7 @@ The community-edition repo doesn't have Discussions enabled yet. That's how inte
 
 ### Deliverable 3 — `NB-005-random-fourier-features.md`
 
-The math research notebook. Lab-style narrative, like the existing [NB-001 through NB-004](../../../claude-markdown-documents/research-notebooks/).
+The math research notebook. Lab-style narrative, like the existing [NB-001 through NB-004](../../../../claude-markdown-documents/research-notebooks/).
 
 **What it covers:**
 

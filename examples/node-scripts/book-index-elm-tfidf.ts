@@ -42,8 +42,8 @@
  *  --weights=./elm_weights           Directory to cache/load weights
  *
  * Usage
- *  npx ts-node --esm node_examples/book-index-elm-tfidf.ts
- *  npx ts-node --esm node_examples/book-index-elm-tfidf.ts --alpha=0.5 --vocab=8000 --indexSeq=512,256,128
+ *  npx ts-node --esm examples/node-scripts/book-index-elm-tfidf.ts
+ *  npx ts-node --esm examples/node-scripts/book-index-elm-tfidf.ts --alpha=0.5 --vocab=8000 --indexSeq=512,256,128
  */
 
 import fs from "fs";

@@ -1,6 +1,6 @@
 # AsterMind Capstones — Summer 2026 Cohort
 
-Each intern in the summer 2026 cohort owns one capstone. Capstones map onto the [July 24 final on-site presentation](../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md#phase-5--final-week--on-site-presentation-july-20--july-24) and are the assessment artifact Sam Henry (RMC advisor) reports against.
+Each intern in the summer 2026 cohort owns one capstone. Capstones map onto the [July 24 final on-site presentation](../../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md#phase-5--final-week--on-site-presentation-july-20--july-24) and are the assessment artifact Sam Henry (RMC advisor) reports against.
 
 ## Lanes
 
@@ -12,11 +12,11 @@ Each intern in the summer 2026 cohort owns one capstone. Capstones map onto the 
 
 ## Why three lanes, not one shared capstone
 
-Three different strength profiles. Three different on-site presentations Sam reports on independently. One shared capstone forces the cohort to compete for the same scope; lanes let each intern play to type. Full rationale in [ADR-0003](../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#why-this-and-not-something-else).
+Three different strength profiles. Three different on-site presentations Sam reports on independently. One shared capstone forces the cohort to compete for the same scope; lanes let each intern play to type. Full rationale in [ADR-0003](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md#why-this-and-not-something-else).
 
 ## Pedagogy alignment
 
-Every capstone follows the conventions in [ADR-0002 § Lesson pedagogy](../../claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md#lesson-pedagogy):
+Every capstone follows the conventions in [ADR-0002 § Lesson pedagogy](../../../claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md#lesson-pedagogy):
 
 - **A-SMART outcomes** — every STARTER.md leads with an Action-oriented, Specific, Measurable, Achievable, Relevant, Time-bound outcome.
 - **Backward Design** — outcome and assessment are defined first; build steps follow.
@@ -45,13 +45,13 @@ Each lane's STARTER.md has the same five sections:
 | W9 (Jul 13–17) | Phase 4 | All: hit measurable bar; dry-run presentations Friday |
 | W10 (Jul 20–24) | Phase 5 | Rehearsals Mon–Tue; **on-site final presentations Fri Jul 24** |
 
-See [IMPL-0003](../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md) for full week-by-week detail.
+See [IMPL-0003](../../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md) for full week-by-week detail.
 
 ## Code conventions
 
-Capstone code lives at `examples/capstones/<lane>/` and is treated as first-class repo content:
+Capstone code lives at `examples/intern-program/capstones/<lane>/` and is treated as first-class repo content:
 
 - Code passes `npm run build` (no broken imports, no TS errors that escape the lesson scope).
-- Non-rendering logic has vitest tests under `tests/capstones/<lane>/`.
+- Non-rendering logic has vitest tests under `tests/intern-program/capstones/<lane>/`.
 - Runtime imports come only from the public AsterMind API (`window.astermind.*` for browser code, `import { ... } from '@astermind/astermind-community'` for any Node-side tools).
 - A `README.md` at each capstone root explains how to run it cold — Sam should be able to clone, run two commands, and see the demo work.

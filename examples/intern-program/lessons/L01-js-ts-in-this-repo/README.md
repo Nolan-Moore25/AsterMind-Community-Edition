@@ -48,11 +48,11 @@ npm test
 
 ### You-Try 2 — Break a test, fix it, ship a PR (slide `do-edit-and-pr`)
 
-1. Open [src/core/Activations.ts](../../../src/core/Activations.ts).
+1. Open [src/core/Activations.ts](../../../../src/core/Activations.ts).
 2. Find the `relu` function. Change `return Math.max(0, x);` to `return Math.max(1, x);` (deliberately wrong).
-3. Run `npm test`. Observe at least one test failing in [tests/Activations.test.ts](../../../tests/Activations.test.ts).
+3. Run `npm test`. Observe at least one test failing in [tests/Activations.test.ts](../../../../tests/Activations.test.ts).
 4. Revert the change. Run `npm test`. Confirm green again.
-5. Now open [README.md](../../../README.md), find one typo or one phrase you'd improve, fix it, and open a draft PR against the `lesson-pr-target` branch.
+5. Now open [README.md](../../../../README.md), find one typo or one phrase you'd improve, fix it, and open a draft PR against the `lesson-pr-target` branch.
 6. Wait for CI to go green on the PR.
 
 **Pass condition:** PR exists on `lesson-pr-target` with a green CI check. Tag yourself in the PR description as "L01 you-try 2 — [your name]".

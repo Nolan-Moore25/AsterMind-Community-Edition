@@ -33,8 +33,8 @@
  *  --topK=5                          Results to show (default 5)
  *
  * Usage
- *  npx ts-node --esm node_examples/tfidf-elm-dense-retrieval.ts
- *  npx ts-node --esm node_examples/tfidf-elm-dense-retrieval.ts --alpha=0.75 --prefilter=300 --vocab=8000 --hidden=256 --act=gelu
+ *  npx ts-node --esm examples/node-scripts/tfidf-elm-dense-retrieval.ts
+ *  npx ts-node --esm examples/node-scripts/tfidf-elm-dense-retrieval.ts --alpha=0.75 --prefilter=300 --vocab=8000 --hidden=256 --act=gelu
  */
 
 import fs from "fs";

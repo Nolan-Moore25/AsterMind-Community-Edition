@@ -5,7 +5,7 @@
 // NB-005-random-fourier-features.md is printed by this file under fixed seeds.
 // Re-run it with:
 //
-//   npx vitest run tests/capstones/nolan-infrastructure/rff-worked-example.test.ts
+//   npx vitest run tests/intern-program/capstones/nolan-infrastructure/rff-worked-example.test.ts
 //
 // Models under test import ONLY public AsterMind API (ADR-0006 invariant):
 //   buildRFF / mapRFF   — src/pro/math/rff.ts       (the thing NB-005 derives)
@@ -18,8 +18,8 @@
 // Timings are printed for the notebook; the ratios are the claim.
 
 import { describe, it, expect } from 'vitest';
-import { buildRFF, mapRFF, ridgeSolvePro, KernelELM } from '../../../src/index';
-import type { RFF } from '../../../src/index';
+import { buildRFF, mapRFF, ridgeSolvePro, KernelELM } from '../../../../src/index';
+import type { RFF } from '../../../../src/index';
 
 /* ================= seeded randomness (reproducibility) ================= */
 

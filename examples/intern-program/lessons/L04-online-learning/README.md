@@ -73,5 +73,5 @@ Thomas's RPS-with-adaptive-opponent capstone is built on exactly this primitive.
 ## Where this is enforced
 
 - **`tests/lessons-schema.test.ts`** validates this lesson's `slides.json`.
-- The `OnlineELM` API used in the demo is the same API tested in [`tests/OnlineELM.test.ts`](../../../tests/OnlineELM.test.ts) — so this lesson stays aligned with what's actually shipped.
+- The `OnlineELM` API used in the demo is the same API tested in [`tests/OnlineELM.test.ts`](../../../../tests/OnlineELM.test.ts) — so this lesson stays aligned with what's actually shipped.
 - Concept-drift behaviour is not unit-tested in the library (it's an emergent behaviour of the algorithm + dataset). The lesson's pass condition is a self-check by the learner, not a CI gate.

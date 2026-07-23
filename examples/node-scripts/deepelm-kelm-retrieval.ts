@@ -56,8 +56,8 @@
  *  - If queries differ stylistically from answers, increase `--maxLen` a bit.
  *
  * Usage
- *   npx ts-node --esm node_examples/deepelm-kelm-retrieval.ts
- *   npx ts-node --esm node_examples/deepelm-kelm-retrieval.ts --topK=5 --m=512 --whiten=true --ridge=0.02
+ *   npx ts-node --esm examples/node-scripts/deepelm-kelm-retrieval.ts
+ *   npx ts-node --esm examples/node-scripts/deepelm-kelm-retrieval.ts --topK=5 --m=512 --whiten=true --ridge=0.02
  */
 
 import {

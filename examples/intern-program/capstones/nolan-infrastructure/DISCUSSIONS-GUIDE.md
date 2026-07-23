@@ -3,7 +3,7 @@
 > **Capstone deliverable 1** of the [Nolan infrastructure lane](./STARTER.md).
 > **Audience:** a repo admin on `AsterMindAI/AsterMind-Community-Edition` (that's Julian). Everything below is written so you can go from "Discussions doesn't exist" to "live, categorized, seeded, and moderated" in one ~15-minute sitting. All thread content is paste-ready — no authoring needed during setup.
 >
-> **Why this is a document and not a done thing:** enabling Discussions is a repo-**settings** action that requires admin permission; it cannot be done by committing files. The authorship half of the deliverable (category design, seed threads, moderation policy) is all here and reviewable; the click belongs to an admin. Rationale: [ADR-0006 §3](../../../claude-markdown-documents/ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md).
+> **Why this is a document and not a done thing:** enabling Discussions is a repo-**settings** action that requires admin permission; it cannot be done by committing files. The authorship half of the deliverable (category design, seed threads, moderation policy) is all here and reviewable; the click belongs to an admin. Rationale: [ADR-0006 §3](../../../../claude-markdown-documents/ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md).
 
 ---
 
@@ -89,7 +89,7 @@ first and we'll convert it to an issue if it turns out to be real.
 ## Good first stops
 
 - [README quick start](https://github.com/AsterMindAI/AsterMind-Community-Edition#readme)
-- The lesson series under `examples/lessons/` (L00 assumes nothing and runs in
+- The lesson series under `examples/intern-program/lessons/` (L00 assumes nothing and runs in
   your browser: `npm run dev:lesson:00`)
 - [CONTRIBUTING.md](https://github.com/AsterMindAI/AsterMind-Community-Edition/blob/main/CONTRIBUTING.md)
   if you want to send a PR
@@ -135,7 +135,7 @@ AsterMind Community Edition **v4.0.0** is tagged. Headlines:
 - **The big cleanup.** The 21 speculative ELM variants are gone; what remains
   is real, tested code: `ELM`, `KernelELM` (exact + Nyström), `OnlineELM`,
   `DeepELM`, the task classes, retrieval/reranking, and OmegaSynth.
-- **A lesson curriculum.** `examples/lessons/L00`–`L06` teach the library from
+- **A lesson curriculum.** `examples/intern-program/lessons/L00`–`L06` teach the library from
   "what's a neuron" to kernels & Nyström, each lesson a runnable slide deck
   (`npm run dev:lesson:00` …).
 - **Docs that match the code.** Every README claim is checked against the
@@ -212,7 +212,7 @@ show the full pattern:
 3. **Load + predict** at runtime — no training call at all.
 
 For browser apps that retrain occasionally (e.g. personalization), the
-`examples/nolan-test/` demos show a heavier-duty pattern: cache the trained
+`examples/intern-program/sandboxes/nolan/` demos show a heavier-duty pattern: cache the trained
 model in **IndexedDB** keyed by a version string, retrain only when the key
 changes, and gate the cached model on a held-out validation check before
 trusting it.
@@ -328,7 +328,7 @@ The policy text lives in Thread 1 (pinned). Operationally:
 
 ## 6. Follow-ons (explicitly not part of this setup)
 
-- **`.github/DISCUSSION_TEMPLATE/` category forms** — worth adding once categories exist, so Q&A posts arrive pre-structured (what-I-ran / expected / actual). Deferred: [ADR-0006 §3, deliverable-1 Option B](../../../claude-markdown-documents/ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md).
+- **`.github/DISCUSSION_TEMPLATE/` category forms** — worth adding once categories exist, so Q&A posts arrive pre-structured (what-I-ran / expected / actual). Deferred: [ADR-0006 §3, deliverable-1 Option B](../../../../claude-markdown-documents/ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md).
 - **CONTRIBUTING.md pointer** — add a two-line "Questions → Discussions, bugs → Issues" note to `CONTRIBUTING.md` § Asking for help after enablement (a PR, needs the live URL).
 - **README badge/link** — same: one line in the README's community section once the tab is live.
 

@@ -82,8 +82,8 @@
  *  - Weights: ./elm_weights/* (per-view ELMs and indexer layers, auto-cached).
  *
  * Usage
- *   npx ts-node --esm node_examples/multiview-encoder-elm-fusion.ts
- *   npx ts-node --esm node_examples/multiview-encoder-elm-fusion.ts \
+ *   npx ts-node --esm examples/node-scripts/multiview-encoder-elm-fusion.ts
+ *   npx ts-node --esm examples/node-scripts/multiview-encoder-elm-fusion.ts \
  *     --alpha=0.55 --stage1=150 --tfstage=120 --seq=512,256,128 --vocab=8000 --headBoost=3
  */
 

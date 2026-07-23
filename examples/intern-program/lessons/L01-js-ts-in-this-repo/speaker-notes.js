@@ -49,7 +49,7 @@ window.Notes = {
 
   "repo-tour": {
     left: `
-      <p>Don't read the file tree aloud. Pause for 30 seconds; let them read. Then point at <em>just three</em> directories: <code>src/</code>, <code>tests/</code>, <code>examples/lessons/</code>.</p>
+      <p>Don't read the file tree aloud. Pause for 30 seconds; let them read. Then point at <em>just three</em> directories: <code>src/</code>, <code>tests/</code>, <code>examples/intern-program/lessons/</code>.</p>
       <p>If you have time, open the actual repo in their editor side-by-side.</p>
     `,
     right: `
@@ -57,7 +57,7 @@ window.Notes = {
       <ul>
         <li><code>src/</code> = the code that ships</li>
         <li><code>tests/</code> = vitest specs</li>
-        <li><code>examples/lessons/</code> = where they live this summer</li>
+        <li><code>examples/intern-program/lessons/</code> = where they live this summer</li>
       </ul>
     `,
   },

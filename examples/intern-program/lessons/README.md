@@ -4,7 +4,7 @@ The intern (and self-taught learner) curriculum for AsterMind. Each lesson is a 
 
 > **New here?** Start with [Lesson L00 — ELM Primer](./L00-elm-primer/). Run `npm run dev:elm` from the repo root and click through.
 
-> **Curriculum scope.** This is the **summer 2026 cohort curriculum** (L00–L06 + per-intern capstones), as defined in [ADR-0003](../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md). Lessons L07–L09 from the original IMPL-0002 hypothesis are deferred to a future cohort.
+> **Curriculum scope.** This is the **summer 2026 cohort curriculum** (L00–L06 + per-intern capstones), as defined in [ADR-0003](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md). Lessons L07–L09 from the original IMPL-0002 hypothesis are deferred to a future cohort.
 
 ## Curriculum
 
@@ -67,6 +67,6 @@ See the meta-instructions in [`_template/README.md`](./_template/README.md).
 
 ## Why these lessons exist (and how they're written)
 
-- [ADR-0002 — elm-explination as the canonical lesson model](../../claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md) — lesson format and pedagogy (A-SMART + TSDR + Backward Design).
-- [ADR-0003 — Summer 2026 curriculum structure](../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md) — why 7 lessons + 3 capstones (and not 10 sequential lessons).
-- [IMPL-0003 — Execution plan](../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md) — the 8-week calendar.
+- [ADR-0002 — elm-explination as the canonical lesson model](../../../claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md) — lesson format and pedagogy (A-SMART + TSDR + Backward Design).
+- [ADR-0003 — Summer 2026 curriculum structure](../../../claude-markdown-documents/ADRs/ADR-0003-summer-2026-curriculum-structure.md) — why 7 lessons + 3 capstones (and not 10 sequential lessons).
+- [IMPL-0003 — Execution plan](../../../claude-markdown-documents/implementation-plans/IMPL-0003-summer-2026-curriculum-execution.md) — the 8-week calendar.

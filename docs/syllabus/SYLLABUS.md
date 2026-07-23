@@ -110,7 +110,7 @@ Nolan's window is longer because he serves as the cohort's **lead intern** — h
 
 ## 5. Curriculum (Lessons L00 – L06)
 
-Each lesson is a self-contained, runnable browser-deck with live interactive demos. The full lesson code lives at `examples/lessons/L<NN>-<slug>/` in the public repository.
+Each lesson is a self-contained, runnable browser-deck with live interactive demos. The full lesson code lives at `examples/intern-program/lessons/L<NN>-<slug>/` in the public repository.
 
 | # | Title | Time | A-SMART outcome (abbreviated) |
 |---|-------|------|-------------------------------|

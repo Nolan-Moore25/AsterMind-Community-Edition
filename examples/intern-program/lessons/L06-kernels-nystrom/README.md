@@ -88,5 +88,5 @@ L06 hands Nolan the first three rows hands-on. RFF is the fourth; that's the mat
 ## Where this is enforced
 
 - **`tests/lessons-schema.test.ts`** validates this lesson's `slides.json`.
-- The `KernelELM` API used in the demo is the same one tested in [`tests/KernelELM.test.ts`](../../../tests/KernelELM.test.ts).
+- The `KernelELM` API used in the demo is the same one tested in [`tests/KernelELM.test.ts`](../../../../tests/KernelELM.test.ts).
 - The "linear fails on rings" claim is not unit-tested in the library (it's an emergent property of the geometry); the demo demonstrates it interactively rather than asserting it in CI.

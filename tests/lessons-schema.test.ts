@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-const LESSONS_DIR = resolve(__dirname, "..", "examples", "lessons");
+const LESSONS_DIR = resolve(__dirname, "..", "examples", "intern-program", "lessons");
 const SCHEMA_PATH = join(LESSONS_DIR, "_shared", "lessons-schema.json");
 
 interface SlideSchema {

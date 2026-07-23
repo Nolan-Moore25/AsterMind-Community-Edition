@@ -60,8 +60,12 @@ See [`package.json`](./package.json) for the full list of `dev:*` scripts.
 | A retrieval / RAG / summarization addition | `src/pro/` |
 | A synthetic-data generator | `src/synth/` |
 | A pre- or post-processing utility | `src/preprocessing/` or `src/utils/` |
-| A teaching artifact (slides, demo) | `examples/lessons/` |
-| A working application demo | `examples/practical-examples/` |
+| A single-feature browser demo (shows off one API) | `examples/demos/` |
+| A problem-oriented application demo (search, moderation, …) | `examples/practical-examples/` |
+| A Node/ts-node script (retrieval experiments, synth reference) | `examples/node-scripts/` |
+| A curriculum lesson (slide deck + live demo) | `examples/intern-program/lessons/` |
+| An intern capstone deliverable | `examples/intern-program/capstones/<lane>/` (tests under `tests/intern-program/capstones/<lane>/`) |
+| Ungraded personal practice / exploration | `examples/intern-program/sandboxes/<name>/` |
 
 If you're not sure, propose it in an issue first.
 
@@ -91,10 +95,10 @@ You don't need an ADR for a bug fix. You do need one for: removing public API, c
 Lessons follow a defined pedagogy: A-SMART outcomes + TSDR slide arc + Backward Design authoring (terms in [`GLOSSARY.md`](./GLOSSARY.md)). Start by copying the template:
 
 ```bash
-cp -R examples/lessons/_template examples/lessons/L<NN>-<slug>
+cp -R examples/intern-program/lessons/_template examples/intern-program/lessons/L<NN>-<slug>
 ```
 
-Edit the five files documented in [`examples/lessons/_template/README.md`](./examples/lessons/_template/README.md). The full pedagogy rationale is in [ADR-0002](./claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md). The build will validate your `slides.json` against the schema (see [`tests/lessons-schema.test.ts`](./tests/lessons-schema.test.ts)).
+Edit the five files documented in [`examples/intern-program/lessons/_template/README.md`](./examples/intern-program/lessons/_template/README.md). The full pedagogy rationale is in [ADR-0002](./claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md). The build will validate your `slides.json` against the schema (see [`tests/lessons-schema.test.ts`](./tests/lessons-schema.test.ts)).
 
 ## Git workflow
 

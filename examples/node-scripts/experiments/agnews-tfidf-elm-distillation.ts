@@ -50,8 +50,8 @@
  *  --csv=results.csv     Output CSV filename (default timestamped)
  *
  * Usage
- *  npx ts-node --esm node_examples/agnews-tfidf-elm-distillation.ts
- *  npx ts-node --esm node_examples/agnews-tfidf-elm-distillation.ts --sample=2000 --vocab=4000 --seq=512,256,128,64 --ensemble=5
+ *  npx ts-node --esm examples/node-scripts/agnews-tfidf-elm-distillation.ts
+ *  npx ts-node --esm examples/node-scripts/agnews-tfidf-elm-distillation.ts --sample=2000 --vocab=4000 --seq=512,256,128,64 --ensemble=5
  */
 
 import fs from "fs";

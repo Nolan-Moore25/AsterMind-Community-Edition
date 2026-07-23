@@ -52,7 +52,8 @@ Execute ADR-0009 against the actual filesystem: move intern-program material und
 
 | Area | File(s) | Change |
 |---|---|---|
-| Build config | `package.json` | Every `dev:*` script's `DEMO=` value updated per §4 table below |
+| Build config | `package.json` (root) | Every `dev:*` script's `DEMO=` value updated per §4 table below |
+| Sub-package dep path | `examples/node-scripts/package.json` | `"@astermind/astermind-elm": "file:.."` → `"file:../.."` — the local-path dep on the repo-root package must gain one `../` now that the sub-package sits one level deeper (verified during planning; the IMPL's original "moves unchanged" was wrong). Also check `examples/node-scripts/package-lock.json` for a resolved `".."` path and regenerate/patch if present. |
 | Type-check config | `tsconfig.json`, `tsconfig.types.json` | Remove the now-redundant `"node_examples"` exclude entry (`"examples"` already covers it once nested); no other change needed |
 | Bundler config | `rollup.config.cjs` | Remove `'node_examples'` from both `exclude` arrays (same redundancy as above) |
 | Test glob | `tests/lessons-schema.test.ts:5` | `resolve(__dirname, "..", "examples", "lessons")` → `resolve(__dirname, "..", "examples", "intern-program", "lessons")` |
@@ -95,6 +96,8 @@ The one place needing real care: relative link depth. Every file moving into a n
 2. **Execute directory moves** — run the fourteen `git mv` operations in §3.1 (create parent directories as needed: `examples/demos/`, `examples/intern-program/`, `examples/intern-program/sandboxes/`, `examples/node-scripts/synth/`, `tests/intern-program/`). Verification: `find examples tests -maxdepth 3` matches ADR-0009's target layout; `git status` shows renames, not add+delete pairs (confirms git's similarity detection kicked in).
 3. **Update `package.json`** — rewrite each `dev:*` script's `DEMO=` value per this mapping: `dev:ham-spam` → `intern-program/sandboxes/nolan/ham-spam`; `dev:word-predictor` → `intern-program/sandboxes/nolan/word-predictor`; `dev:news` → `demos/ag-news-classifier`; `dev:autocomplete` → `demos/autocomplete-chain`; `dev:chain` → `demos/chain-with-save`; `dev:music` → `demos/drum-pattern-generator`; `dev:lang` → `demos/language-classifier`; `dev:elm`, `dev:lesson:00`–`06`, `dev:lesson`, `dev:lesson:template` → `intern-program/lessons` (only the `DEMO=` value changes; the `--open /LNN.../ ` and `--open /_template/` suffixes are unaffected). `dev:search`/`moderation`/`form-autocomplete`/`intent`/`recommendations` are unaffected (practical-examples doesn't move). Verification: `grep "DEMO=" package.json` shows only new paths; no `nolan-test`, `ag-news-demo`, `autocomplete-chain` (bare, i.e. not under `demos/`), `chain-with-save` (bare), `elm-drum-demo-mainthread`, or `language-awareness-demo` remain.
 4. **Update `tsconfig.json`, `tsconfig.types.json`, `rollup.config.cjs`** — remove the now-redundant `"node_examples"` / `'node_examples'` exclude entries (the pre-existing `"examples"` / `'examples'` entries already cover the relocated directory). Verification: `grep node_examples tsconfig.json tsconfig.types.json rollup.config.cjs` returns nothing; `npm run build` still succeeds and `dist/` still excludes everything it excluded before.
+   - **4a. Fix the node-scripts sub-package dep path** — in `examples/node-scripts/package.json`, change `"@astermind/astermind-elm": "file:.."` to `"file:../.."` (the local-path dep on the repo root needs one more `../` now that the sub-package is one level deeper). Check `examples/node-scripts/package-lock.json` for a `".."`-resolved path to the root package and patch or delete-and-regenerate it if present. Verification: `grep '"file:' examples/node-scripts/package.json` shows `file:../..`; the sub-package is not installed in CI so this is a correctness edit, not a gating one, but a `cd examples/node-scripts && npm install` should resolve the local dep without error if spot-checked.
+   - **4b. Synth reference scripts move byte-identical, not repaired** — `examples/node-scripts/synth/examples/` and `.../scripts/` are relocated verbatim by the `git mv` in step 2 with **no import edits**. Per ADR-0009 §1.4/§2, these files are already non-compiling in place (`quickstart.ts` → `../synth/index.js` doesn't exist; `evaluateGeneratedData.ts` → `../scripts/loadTrainingData` doesn't exist) and are excluded from every build/test gate, so they are preserved as flagged reference material rather than half-repaired. Verification: `git diff --stat` shows these files as pure renames (0 content changes); the fix-or-delete decision is left to a future ADR.
 5. **Update `tests/lessons-schema.test.ts:5`** — change the hardcoded path per §3.2. Verification: `npx vitest run tests/lessons-schema.test.ts` passes and actually discovers all 7 lessons (not zero, which would indicate a silently-wrong path).
 6. **Update root docs** (`README.md`, `ARCHITECTURE.md`, `CONTRIBUTING.md`) — apply every path change in §3.2, including `ARCHITECTURE.md`'s ASCII tree and `CONTRIBUTING.md`'s "where does this go" table gaining the four new rows (`examples/demos/` → "a single-feature library showcase," `examples/intern-program/capstones/` → "a capstone deliverable," `examples/intern-program/sandboxes/` → "personal, ungraded practice work," `examples/node-scripts/` → "a standalone Node/ts-node script"). Verification: every markdown link in these three files resolves (manual check or the link-check script from step 9).
 7. **Update `docs/CODE-WALKTHROUGH.md`, `docs/IMPLEMENTATION-MODELS.md`, `docs/QUICK-START-TUTORIAL.md`, `docs/PUBLISHING.md`** — fix every reference to a moved path. Verification: same link-check.
@@ -144,11 +147,26 @@ No runtime rollout — this is a repo-structure change with no deploy step, feat
 
 ## 11. Done Checklist
 
-- [ ] All steps complete and verified
-- [ ] Tests green (`npm test`, `npm run build`)
-- [ ] Docs / ADR updated (ADR-0009 sign-off checklist ticked)
-- [ ] Deployed / merged to correct branch (`repo-navigation-consolidation` → `main`)
-- [ ] Sign-off
+- [x] All steps complete and verified
+- [x] Tests green (`npm test` — 19 files / 122 tests; `npm run build` — OK)
+- [x] Docs / ADR updated (ADR-0009 sign-off checklist ticked)
+- [ ] Deployed / merged to correct branch (work is committed-ready on `repo-navigation-consolidation`; **not yet committed/merged** — pending review)
+- [ ] Sign-off (reviewer pass pending)
+
+## 12. Execution notes (2026-07-21)
+
+Executed on branch `repo-navigation-consolidation`. All fourteen moves in §3.1 landed as `git mv` (history-preserving); the synth relocation shows as add+delete in `git status` rather than `R`, but the files are byte-identical so `git log --follow` / `git diff -M` still resolve the rename.
+
+**Beyond the written steps, the following path references also needed fixing (found by the code-and-asset scan and the grep-clean pass, not just the doc-link pass the plan anticipated):**
+
+1. **`tests/intern-program/capstones/nolan-infrastructure/rff-worked-example.test.ts`** imported `../../../src/index`; the deeper location needed `../../../../src/index`. This was a real test failure (caught by `npm test`), not a doc-only edit — the plan under-scoped it by treating moved-file link fixes as docs-only.
+2. **`examples/intern-program/lessons/index.html`** had three **absolute GitHub `blob/main/examples/capstones/...` URLs** that would have 404'd after merge — repointed to `examples/intern-program/capstones/...`.
+3. **`examples/node-scripts/*.ts` header comments** (run-command examples) still said `node_examples/` — bulk-updated to `examples/node-scripts/`.
+4. **Numerous display-text/comment path strings** across lesson content (`_shared/lesson.css`, `_shared/lessons-schema.json`, `_shared/lesson-deck.js`, `_template/index.html`, `_template/README.md`, L01 speaker-notes), capstone STARTERs (Jarrett/Thomas code+test destination paths), `docs/PUBLISHING.md`, `docs/HISTORY.md`, `docs/CODE-WALKTHROUGH.md`, `docs/IMPLEMENTATION-MODELS.md`, and the sandbox word-predictor were updated for accuracy.
+
+**The two planning-time findings (see §3.2, §4a/4b) were handled as documented:** `examples/node-scripts/package.json` + `package-lock.json` had their `file:..` local-dep path deepened to `file:../..`; the synth reference scripts were relocated byte-identical and left un-repaired (pre-existing broken imports preserved, flagged for a future fix-or-delete ADR).
+
+**Final grep-clean:** the only remaining old-path tokens live in intentionally-preserved records — historical ADRs/IMPLs/NBs (0002–0008, NB-001–005), `CHANGELOG.md`, `docs/HISTORY.md`'s retired-file names (with a breadcrumb added), and ADR-0009/IMPL-0009/`ARCHITECTURE.md`'s own before→after explanations.
 
 ---
 

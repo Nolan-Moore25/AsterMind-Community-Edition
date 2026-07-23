@@ -8,14 +8,14 @@ Lightweight, end-to-end retrieval demos built on `@astermind/astermind-elm`. Eac
 # from repo root
 pnpm i        # or npm i / yarn
 # run any example with ts-node + ESM
-npx ts-node --esm node_examples/<script>.ts
+npx ts-node --esm examples/node-scripts/<script>.ts
 ```
 
 **Data layout expected**
 
 - `public/ag-news-classification-dataset/train.csv` (AG News)
 - `public/go_textbook.md` (the book/corpus demos)
-- Optional: `node_examples/elm_weights/` and `node_examples/embeddings/` will be created/cached automatically.
+- Optional: `examples/node-scripts/elm_weights/` and `examples/node-scripts/embeddings/` will be created/cached automatically.
 
 ---
 
@@ -42,7 +42,7 @@ npx ts-node --esm node_examples/<script>.ts
 
 **Run**
 ```bash
-npx ts-node --esm node_examples/agnews-two-stage-retrieval.ts \
+npx ts-node --esm examples/node-scripts/agnews-two-stage-retrieval.ts \
   --sample=5000 --split=0.2 --topK=5 \
   --seq=512,256,128 --act=gelu --dropout=0.02 --ensemble=3 \
   --maxLen=200 --teacher=raw   # or --teacher=deep
@@ -66,7 +66,7 @@ npx ts-node --esm node_examples/agnews-two-stage-retrieval.ts \
 
 **Run**
 ```bash
-npx ts-node --esm node_examples/book-index-elm-tfidf.ts
+npx ts-node --esm examples/node-scripts/book-index-elm-tfidf.ts
 # optional flags may exist depending on your local version:
 #   --vocab=5000  --seq=256,128  --dropout=0.02  --maxLen=160  --alpha=0.7  --topK=5
 ```
@@ -92,7 +92,7 @@ npx ts-node --esm node_examples/book-index-elm-tfidf.ts
 
 **Run**
 ```bash
-npx ts-node --esm node_examples/tfidf-elm-dense-retrieval.ts
+npx ts-node --esm examples/node-scripts/tfidf-elm-dense-retrieval.ts
 # optional flags in some versions:
 #   --vocab=5000  --hidden=128  --dropout=0.02
 ```
@@ -119,7 +119,7 @@ npx ts-node --esm node_examples/tfidf-elm-dense-retrieval.ts
 
 **Run**
 ```bash
-npx ts-node --esm node_examples/deepelm-kelm-retrieval.ts \
+npx ts-node --esm examples/node-scripts/deepelm-kelm-retrieval.ts \
   --topK=3 --m=256 --whiten=true --ridge=0.01 --gamma=auto --mode=nystrom \
   --saveEmb=targets.json --saveKELM=kelm.json
 ```
@@ -145,8 +145,8 @@ npx ts-node --esm node_examples/deepelm-kelm-retrieval.ts \
 
 ## Conventions & Tips
 
-- **Caching:** Most demos cache model JSON under `node_examples/elm_weights/` to keep reruns fast.
-- **Embeddings:** Saved in `node_examples/embeddings/` as JSON (vectors + metadata).
+- **Caching:** Most demos cache model JSON under `examples/node-scripts/elm_weights/` to keep reruns fast.
+- **Embeddings:** Saved in `examples/node-scripts/embeddings/` as JSON (vectors + metadata).
 - **Cosine everywhere:** All dense vectors are L2-normalized; scores are cosine unless noted.
 - **Performance knobs:**  
   - TF-IDF vocab (`--vocab`) and encoder `--maxLen` trade accuracy vs. speed.  

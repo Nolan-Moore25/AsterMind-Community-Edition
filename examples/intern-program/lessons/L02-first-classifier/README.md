@@ -76,4 +76,4 @@ Click **"Export JSON"**. A textarea fills with a JSON snapshot:
 
 - **`tests/lessons-schema.test.ts`** validates this lesson's `slides.json`.
 - The bundled dataset is hard-coded in [`live-demo.js`](./live-demo.js) — small enough to read end-to-end. If a learner asks "where does this data come from?", show them.
-- The `IntentClassifier` config (hiddenUnits, useTokenizer, activation) is the same as the smoke tests in [`tests/IntentClassifier.test.ts`](../../../tests/IntentClassifier.test.ts), so this lesson stays in sync with what's actually shipped.
+- The `IntentClassifier` config (hiddenUnits, useTokenizer, activation) is the same as the smoke tests in [`tests/IntentClassifier.test.ts`](../../../../tests/IntentClassifier.test.ts), so this lesson stays in sync with what's actually shipped.

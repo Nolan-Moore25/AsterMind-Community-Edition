@@ -16,7 +16,7 @@ This package consolidates four previously-separate AsterMind packages (ELM, Pro,
 
 ### 🎓 I'm new to ML and want to learn
 
-Start with the **lesson curriculum** at [`examples/lessons/`](./examples/lessons/). Lesson L00 is a 16-slide visual walkthrough of what an ELM is and why the random-projection trick works. Built for engineers who haven't taken an ML class.
+Start with the **lesson curriculum** at [`examples/intern-program/lessons/`](./examples/intern-program/lessons/). Lesson L00 is a 16-slide visual walkthrough of what an ELM is and why the random-projection trick works. Built for engineers who haven't taken an ML class.
 
 ```bash
 git clone https://github.com/AsterMindAI/AsterMind-Community-Edition.git

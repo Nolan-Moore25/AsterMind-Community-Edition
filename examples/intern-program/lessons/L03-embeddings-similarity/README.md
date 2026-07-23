@@ -70,4 +70,4 @@ The cosine-intuition slide has no live widget — just a static SVG. If the coho
 
 - **`tests/lessons-schema.test.ts`** validates this lesson's `slides.json`.
 - The bundled corpus is hard-coded in [`live-demo.js`](./live-demo.js). Change it at your peril (it's calibrated so You-Try 2 produces a reproducible result for "hi").
-- `EmbeddingStore` and `UniversalEncoder` are both stable public-API symbols (their tests live in [`tests/EmbeddingStore.test.ts`](../../../tests/EmbeddingStore.test.ts)).
+- `EmbeddingStore` and `UniversalEncoder` are both stable public-API symbols (their tests live in [`tests/EmbeddingStore.test.ts`](../../../../tests/EmbeddingStore.test.ts)).

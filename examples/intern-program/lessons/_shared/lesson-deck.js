@@ -2,7 +2,7 @@
 /**
  * AsterMind Lesson Deck — Shared deck navigation
  * --------------------------------------------------
- * Reusable slide-deck logic for every lesson under examples/lessons/L*.
+ * Reusable slide-deck logic for every lesson under examples/intern-program/lessons/L*.
  *
  * Loads slides.json, renders nav, handles keyboard/button navigation, and
  * exposes a tiny API for live demos:

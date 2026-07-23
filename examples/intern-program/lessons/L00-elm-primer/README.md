@@ -59,7 +59,7 @@ import('/dist/astermind.esm.js').then(m => {
 
 ## After this lesson
 
-You're ready for **L01 — JavaScript & TypeScript for ML newcomers** (planned), where the curriculum starts using the library directly in code. Or jump to [the practical examples](../../practical-examples/) for full applications.
+You're ready for **L01 — JavaScript & TypeScript for ML newcomers** (planned), where the curriculum starts using the library directly in code. Or jump to [the practical examples](../../../practical-examples/) for full applications.
 
 ## Lesson format note
 

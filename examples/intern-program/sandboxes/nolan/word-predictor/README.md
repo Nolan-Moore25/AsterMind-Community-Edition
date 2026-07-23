@@ -2,8 +2,8 @@
 
 A phone-keyboard-style demo: type a partial sentence and get a ranked
 dropdown of likely next words — including while you're still typing the
-current word. Built per [ADR-0004](../../../claude-markdown-documents/ADRs/ADR-0004-context-based-next-word-predictor.md)/[IMPL-0004](../../../claude-markdown-documents/implementation-plans/IMPL-0004-context-based-next-word-predictor.md)
-(v1: whole-next-word prediction) and [ADR-0005](../../../claude-markdown-documents/ADRs/ADR-0005-active-typing-word-prediction.md)/[IMPL-0005](../../../claude-markdown-documents/implementation-plans/IMPL-0005-active-typing-word-prediction.md)
+current word. Built per [ADR-0004](../../../../claude-markdown-documents/ADRs/ADR-0004-context-based-next-word-predictor.md)/[IMPL-0004](../../../../claude-markdown-documents/implementation-plans/IMPL-0004-context-based-next-word-predictor.md)
+(v1: whole-next-word prediction) and [ADR-0005](../../../../claude-markdown-documents/ADRs/ADR-0005-active-typing-word-prediction.md)/[IMPL-0005](../../../../claude-markdown-documents/implementation-plans/IMPL-0005-active-typing-word-prediction.md)
 (v2: active-typing prediction, a larger corpus, and calibrated confidence).
 
 ## How this differs from `03-smart-form-autocomplete`
@@ -274,5 +274,5 @@ end-to-end against the live demo.
 - Platt scaling / isotonic calibration — the closed-form linear regression
   cleared its own validation gate, so the more complex alternatives weren't
   needed (ADR-0005 §3).
-- Promotion into `examples/practical-examples/` — stays in the `nolan-test`
-  sandbox.
+- Promotion into `examples/practical-examples/` — stays in the
+  `examples/intern-program/sandboxes/nolan/` sandbox.

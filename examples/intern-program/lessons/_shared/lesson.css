@@ -1,7 +1,7 @@
 /* ==========================================================================
    AsterMind Lesson Deck — Shared Stylesheet
    --------------------------------------------------------------------------
-   Used by every lesson under examples/lessons/L*. Distilled from the original
+   Used by every lesson under examples/intern-program/lessons/L*. Distilled from the original
    elm-explination demo. Each lesson can add its own per-slide styles in its
    own <style> block; this file owns the deck shell and tokens.
    ========================================================================== */
