@@ -66,14 +66,16 @@ Candidates worth considering for a hardened return: `HierarchicalELM`, `TimeSeri
 
 **What was removed:**
 
-- [`node_examples/agnews-two-stage-retrieval.ts`](../node_examples/) — used SBERT for two-stage retrieval over AG News
-- [`node_examples/experiments/agnews-deepelm-on-sbert-grid.ts`](../node_examples/experiments/) — grid search with SBERT embeddings
-- [`node_examples/experiments/agnews-elm-distill-sbert.ts`](../node_examples/experiments/) — ELM distillation from SBERT
-- The `@xenova/transformers` dependency from [`node_examples/package.json`](../node_examples/package.json)
+- `node_examples/agnews-two-stage-retrieval.ts` — used SBERT for two-stage retrieval over AG News
+- `node_examples/experiments/agnews-deepelm-on-sbert-grid.ts` — grid search with SBERT embeddings
+- `node_examples/experiments/agnews-elm-distill-sbert.ts` — ELM distillation from SBERT
+- The `@xenova/transformers` dependency from `node_examples/package.json`
+
+  > These paths are recorded as they existed at retirement (2026-05-05). The surviving Node scripts have since moved from the top-level `node_examples/` to [`examples/node-scripts/`](../examples/node-scripts/) — see [ADR-0009](../claude-markdown-documents/ADRs/ADR-0009-consolidate-repo-navigation-and-naming.md).
 
 **Why retired:** All three files imported `pipeline` from `@xenova/transformers` to compute Sentence-BERT embeddings as a benchmark against ELM-based retrieval. The package dragged in `onnxruntime-web` → `onnx-proto` → `protobufjs`, all of which carried **CRITICAL**-severity CVEs. There is no v3+ of `@xenova/transformers` on npm (the project was renamed to `@huggingface/transformers`). Migrating would have been a non-trivial API change with no payoff for this repo's mission.
 
-This is an ELM library; SBERT comparison is research, not lesson material or library feature. The other node_examples (`book-index-elm-tfidf`, `deepelm-kelm-retrieval`, `tfidf-elm-dense-retrieval`, plus `experiments/agnews-tfidf-elm-distillation`, `experiments/multiview-encoder-elm-fusion`, `experiments/weighted_hybrid_residual_rrf`) do not depend on transformers and remain.
+This is an ELM library; SBERT comparison is research, not lesson material or library feature. The other Node scripts (`book-index-elm-tfidf`, `deepelm-kelm-retrieval`, `tfidf-elm-dense-retrieval`, plus `experiments/agnews-tfidf-elm-distillation`, `experiments/multiview-encoder-elm-fusion`, `experiments/weighted_hybrid_residual_rrf`) do not depend on transformers and remain — now under `examples/node-scripts/`.
 
 **How to recover:** Tag `v3.0-with-variants` and branch `archive/v3.0-with-21-variants` preserve all three files. If a future SBERT comparison is genuinely needed, do it in a separate research repo using the maintained `@huggingface/transformers` v4+.
 
@@ -103,7 +105,7 @@ Plus `src/pro/elm/index.ts` and the `export * from './elm/index.js'` line in `sr
 | `online-kernel-elm.ts` | 332 | yes (online + kernel combo) | 0 | 0 | delete |
 | `sparse-elm.ts` | 304 | yes (L1 sparsity) | 0 | 0 | delete |
 
-All five carry residue from the Premium-era license-gated build — every file has `// License removed - all features are now free!` at the top and `// License check removed // Premium feature - requires valid license` inside the constructor. Zero consumers across `src/`, `tests/`, `examples/`, `node_examples/`, and `public/`. Zero unit tests. No example usage. No documentation.
+All five carry residue from the Premium-era license-gated build — every file has `// License removed - all features are now free!` at the top and `// License check removed // Premium feature - requires valid license` inside the constructor. Zero consumers across `src/`, `tests/`, `examples/` (including the Node scripts now at `examples/node-scripts/`), and `public/`. Zero unit tests. No example usage. No documentation.
 
 Even where the shape is distinct from core (`MultiTaskELM`, `OnlineKernelELM`, `SparseELM`), untested + unused scaffolding-quality code does not belong in the public API. Same bar as the 21 variants applies — see the path-back rules in the v3.0.0 → v4.0.0 entry above.
 

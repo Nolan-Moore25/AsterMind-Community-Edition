@@ -523,12 +523,12 @@ train(data: LabeledExample[]): void {
   "watch": "rollup -c -w",
   "clean": "rm -rf dist",
   "dev": "vite",
-  "dev:news": "DEMO=ag-news-demo vite",
-  "dev:autocomplete": "DEMO=autocomplete-chain vite",
-  "dev:chain": "DEMO=chain-with-save vite",
-  "dev:music": "DEMO=elm-drum-demo-mainthread vite",
+  "dev:news": "DEMO=demos/ag-news-classifier vite",
+  "dev:autocomplete": "DEMO=demos/autocomplete-chain vite",
+  "dev:chain": "DEMO=demos/chain-with-save vite",
+  "dev:music": "DEMO=demos/drum-pattern-generator vite",
   "dev:elm": "DEMO=elm-explination vite",
-  "dev:lang": "DEMO=language-awareness-demo vite",
+  "dev:lang": "DEMO=demos/language-classifier vite",
   "test": "vitest"
 },
 ```
@@ -712,14 +712,15 @@ npm test
 
 ### Example Directories:
 
-1. **`examples/ag-news-demo/`** - News classification demo
-2. **`examples/autocomplete-chain/`** - Autocomplete with chaining
-3. **`examples/chain-with-save/`** - Model saving/loading demo
-4. **`examples/elm-drum-demo-mainthread/`** - Music generation demo
-5. **`examples/elm-explination/`** - Educational presentation
-6. **`examples/language-awareness-demo/`** - Language detection demo
+1. **`examples/demos/ag-news-classifier/`** - News classification demo
+2. **`examples/demos/autocomplete-chain/`** - Autocomplete with chaining
+3. **`examples/demos/chain-with-save/`** - Model saving/loading demo
+4. **`examples/demos/drum-pattern-generator/`** - Music generation demo
+5. **`examples/demos/language-classifier/`** - Language detection demo
 
-### Node Examples (`node_examples/`)
+(The educational slide decks that used to live at `examples/elm-explination/` are now the lesson curriculum under [`examples/intern-program/lessons/`](../examples/intern-program/lessons/).)
+
+### Node Examples (`examples/node-scripts/`)
 
 - `agnews-two-stage-retrieval.ts` - Two-stage retrieval system
 - `book-index-elm-tfidf.ts` - Book indexing with TF-IDF

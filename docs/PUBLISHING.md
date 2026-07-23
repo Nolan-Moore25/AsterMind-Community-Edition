@@ -112,7 +112,7 @@ This prints the exact tarball manifest without touching the registry. Review it 
 npm publish --dry-run
 ```
 
-Unlike `pack`, this runs the **entire publish pipeline** — including `prepublishOnly` (clean → build → full test suite) — and stops just short of the actual upload. Expect it to take a few minutes (the test suite is the long pole; note that `tests/capstones/nolan-infrastructure/` includes the RFF benchmark suite). Success criteria:
+Unlike `pack`, this runs the **entire publish pipeline** — including `prepublishOnly` (clean → build → full test suite) — and stops just short of the actual upload. Expect it to take a few minutes (the test suite is the long pole; note that `tests/intern-program/capstones/nolan-infrastructure/` includes the RFF benchmark suite). Success criteria:
 
 - [ ] `prepublishOnly` completes: build clean, **all tests green**
 - [ ] The printed file list matches what §4.1 showed
@@ -314,4 +314,4 @@ IF BROKEN   [ ] dist-tag back → deprecate → patch-forward (unpublish = last 
 - npm trusted publishing: <https://docs.npmjs.com/trusted-publishers>
 - npm unpublish policy: <https://docs.npmjs.com/policies/unpublish>
 - [ADR-0006](../claude-markdown-documents/ADRs/ADR-0006-nolan-capstone-infrastructure-and-rff-notebook.md) — why this doc is shaped this way (capstone deliverable 2)
-- [`examples/capstones/nolan-infrastructure/STARTER.md`](../examples/capstones/nolan-infrastructure/STARTER.md) — the acceptance bar ("Julian would push the button using only this doc")
+- [`examples/intern-program/capstones/nolan-infrastructure/STARTER.md`](../examples/intern-program/capstones/nolan-infrastructure/STARTER.md) — the acceptance bar ("Julian would push the button using only this doc")

@@ -147,14 +147,14 @@ The AsterMind ELM repository includes several standalone application examples:
 ### Example Structure
 
 ```
-examples/
-├── language-awareness-demo/    # Language detection app
+examples/demos/
+├── language-classifier/        # Language detection app
 │   ├── index.html
 │   └── main.ts
 ├── autocomplete-chain/         # Text completion app
 │   ├── index.html
 │   └── main.js
-└── ag-news-demo/              # News classification app
+└── ag-news-classifier/         # News classification app
     ├── index.html
     └── agnews-demo.js
 ```

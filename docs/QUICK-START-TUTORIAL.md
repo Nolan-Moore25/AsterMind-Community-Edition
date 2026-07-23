@@ -1297,7 +1297,7 @@ console.log(results);
 ## Next Steps
 
 1. **Explore Examples**: Check out the `examples/` directory for working demos
-2. **Advanced Use Cases**: See `node_examples/` for complex scenarios
+2. **Advanced Use Cases**: See `examples/node-scripts/` for complex scenarios
 3. **Full Documentation**: Read `README.md` for complete API reference
 4. **Experiment**: Try different configurations and architectures
 5. **Build Something**: Create your own ML application using AsterMind!

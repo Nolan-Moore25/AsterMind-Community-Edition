@@ -27,13 +27,19 @@ AsterMind is a TypeScript library that bundles to ESM and UMD. There are no runt
 │   ├── ui/                    # BindUI (browser DOM helper)
 │   └── config/                # Presets
 ├── tests/                     # vitest suite (TypeScript)
-├── examples/
-│   ├── lessons/               # Lesson curriculum (L00 primer + template + curriculum index)
-│   └── practical-examples/    # 5 working application demos
-├── node_examples/             # Node.js TF-IDF + retrieval experiments (sub-package)
+│   ├── *.test.ts              # Unit tests for the library surface
+│   └── intern-program/        # Tests mirroring examples/intern-program/ (capstone suites)
+├── examples/                  # Everything runnable — browser demos, Node scripts, intern program
+│   ├── demos/                 # Single-feature browser showcases (AG News, autocomplete, drum, …)
+│   ├── practical-examples/    # 5 problem-oriented application demos
+│   ├── node-scripts/          # Node/ts-node retrieval scripts (own package.json) + synth/ reference scripts
+│   └── intern-program/        # Summer-cohort material
+│       ├── lessons/           # L00–L06 curriculum (primer + template + curriculum index)
+│       ├── capstones/         # Per-intern capstone lanes (STARTER.md + code)
+│       └── sandboxes/         # Ungraded personal practice work (e.g. sandboxes/nolan/)
 ├── docs/                      # User-facing documentation
-├── claude-markdown-documents/ # ADRs and implementation plans
-├── public/                    # Static assets (model files, the bundled UMD copy)
+├── claude-markdown-documents/ # ADRs, implementation plans, research notebooks
+├── public/                    # Static assets (model files, datasets, the bundled UMD copy)
 └── scripts/                   # Repo maintenance scripts
 ```
 
@@ -101,7 +107,8 @@ If you're building a UI demo, start in `src/tasks/`. If you're doing custom ML, 
 | `generators/` | Five generation modes: `retrieval`, `elm`, `hybrid`, `exact`, `perfect` |
 | `encoders/` | String / one-hot / fixed-length / char-vocab encoding |
 | `core/`, `loaders/`, `models/`, `store/`, `utils/` | Supporting infra |
-| `examples/`, `scripts/` | Runnable scripts (excluded from the build) |
+
+The runnable OmegaSynth reference scripts that used to live in `src/synth/examples/` and `src/synth/scripts/` were relocated to [`examples/node-scripts/synth/`](./examples/node-scripts/synth/) (they never shipped in the build and don't belong under `src/`). Note: they are preserved as-is reference material and are not currently wired to compile — see [ADR-0009 §1.4](./claude-markdown-documents/ADRs/ADR-0009-consolidate-repo-navigation-and-naming.md).
 
 ## Build pipeline
 
@@ -114,17 +121,17 @@ If you're building a UI demo, start in `src/tasks/`. If you're doing custom ML, 
 
 `postbuild` copies the UMD bundle to `public/astermind.umd.js` so the demo HTML pages can `<script src="...">` it without a build step.
 
-The compile **excludes** `src/**/examples/**` and `src/**/scripts/**` — those directories hold runnable scripts that would pollute the published package.
+The compile **excludes** `examples/`, `tests/`, `public/`, and the `src/**/examples/**` / `src/**/scripts/**` patterns — those hold runnable scripts and demos that would pollute the published package. (The `src/**/` patterns are now vestigial since the only such directories, `src/synth/examples/` and `src/synth/scripts/`, were moved to `examples/node-scripts/synth/`; they're kept as a guard against the pattern reappearing.)
 
 ## Test setup
 
-Tests live in [`tests/`](./tests/) as `.test.ts` files (vitest). One special test ([`tests/lessons-schema.test.ts`](./tests/lessons-schema.test.ts)) auto-discovers every lesson under `examples/lessons/` and validates its `slides.json` against [`examples/lessons/_shared/lessons-schema.json`](./examples/lessons/_shared/lessons-schema.json).
+Tests live in [`tests/`](./tests/) as `.test.ts` files (vitest). One special test ([`tests/lessons-schema.test.ts`](./tests/lessons-schema.test.ts)) auto-discovers every lesson under `examples/intern-program/lessons/` and validates its `slides.json` against [`examples/intern-program/lessons/_shared/lessons-schema.json`](./examples/intern-program/lessons/_shared/lessons-schema.json). Capstone tests mirror their examples under [`tests/intern-program/capstones/`](./tests/intern-program/capstones/).
 
 [`vite.config.ts`](./vite.config.ts) switches the test environment to `jsdom` only when running under vitest, so DOM-touching tests work.
 
 ## Where lessons and decisions live
 
-- **Lessons:** [`examples/lessons/`](./examples/lessons/). Format documented in [`examples/lessons/_template/README.md`](./examples/lessons/_template/README.md); pedagogy in [ADR-0002](./claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md).
+- **Lessons:** [`examples/intern-program/lessons/`](./examples/intern-program/lessons/). Format documented in [`examples/intern-program/lessons/_template/README.md`](./examples/intern-program/lessons/_template/README.md); pedagogy in [ADR-0002](./claude-markdown-documents/ADRs/ADR-0002-elm-explination-as-canonical-lesson-model.md).
 - **Architecture decisions:** [`claude-markdown-documents/ADRs/`](./claude-markdown-documents/ADRs/).
 - **Implementation plans:** [`claude-markdown-documents/implementation-plans/`](./claude-markdown-documents/implementation-plans/).
 - **Project history (what was retired and why):** [`docs/HISTORY.md`](./docs/HISTORY.md).
@@ -133,8 +140,8 @@ Tests live in [`tests/`](./tests/) as `.test.ts` files (vitest). One special tes
 
 These directories are excluded from the npm package:
 
-- `tests/`, `examples/`, `node_examples/`
+- `tests/`, `examples/` (this now includes the former top-level `node_examples/`, relocated to `examples/node-scripts/`)
 - `claude-markdown-documents/` (planning artefacts)
-- `src/**/examples/`, `src/**/scripts/` (build-time exclusion)
+- `src/**/examples/`, `src/**/scripts/` (build-time exclusion; currently matches nothing after the synth-scripts relocation)
 
 The `files` entry in [`package.json`](./package.json) lists what does ship: `dist/`, `README.md`, `LICENSE`, `docs/`.
